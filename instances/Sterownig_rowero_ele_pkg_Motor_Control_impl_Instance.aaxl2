@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance">
+  <instance:SystemInstance name="Motor_Control_impl_Instance" category="thread">
+    <featureInstance name="throttle_in" type="/1">
+      <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.0"/>
+    </featureInstance>
+    <featureInstance name="battery_in" type="/2">
+      <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.1"/>
+    </featureInstance>
+    <featureInstance name="speed_in" type="/3">
+      <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.2"/>
+    </featureInstance>
+    <featureInstance name="motor_out" direction="out" type="/4">
+      <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.3"/>
+    </featureInstance>
+    <classifier xsi:type="aadl2:ThreadImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Motor_Control.impl"/>
+    <systemOperationMode name="No Modes"/>
+    <componentImplementation xsi:type="aadl2:ThreadImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Motor_Control.impl"/>
+  </instance:SystemInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Throttle_Input" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Throttle_Input"/>
+  </instance:ComponentInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Battery_Level" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Battery_Level"/>
+  </instance:ComponentInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Speed_Signal" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Speed_Signal"/>
+  </instance:ComponentInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Motor_Command" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Motor_Command"/>
+  </instance:ComponentInstance>
+</xmi:XMI>

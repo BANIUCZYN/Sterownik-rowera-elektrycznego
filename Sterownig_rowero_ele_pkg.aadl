@@ -1,0 +1,82 @@
+package E_Bike_Controller
+public
+
+  -- Typ danych
+  data Battery_Level
+  end Battery_Level;
+
+  data Motor_Command
+  end Motor_Command;
+
+  data Throttle_Input
+  end Throttle_Input;
+
+  data Speed_Signal
+  end Speed_Signal;
+
+
+
+  -- Proces główny sterownika
+  process E_Bike_Process
+  features
+    throttle     : in data port Throttle_Input;
+    battery      : in data port Battery_Level;
+    motor_out    : out data port Motor_Command;
+    speed_sensor : in data port Speed_Signal;
+  end E_Bike_Process;
+
+  process implementation E_Bike_Process.impl
+    subcomponents
+      throttle_thread : thread Throttle_Reader.impl;
+      control_thread  : thread Motor_Control.impl;
+      battery_thread  : thread Battery_Monitor.impl;
+    connections
+      c1 : port throttle -> throttle_thread.throttle_in;
+      c2 : port battery -> battery_thread.battery_in;
+      c3 : port speed_sensor -> control_thread.speed_in;
+      c4 : port throttle_thread.throttle_out -> control_thread.throttle_in;
+      c5 : port battery_thread.battery_out -> control_thread.battery_in;
+      c6 : port control_thread.motor_out -> motor_out;
+  end E_Bike_Process.impl;
+
+
+
+  -- Wątek odczytu manetki
+  thread Throttle_Reader
+  features
+    throttle_in  : in data port Throttle_Input;
+    throttle_out : out data port Throttle_Input;
+  end Throttle_Reader;
+
+  thread implementation Throttle_Reader.impl
+  end Throttle_Reader.impl;
+
+
+
+  -- Wątek monitorujący baterię
+  thread Battery_Monitor
+  features
+    battery_in  : in data port Battery_Level;
+    battery_out : out data port Battery_Level;
+  end Battery_Monitor;
+
+  thread implementation Battery_Monitor.impl
+  end Battery_Monitor.impl;
+
+
+
+  -- Wątek głównej logiki sterowania silnikiem
+  thread Motor_Control
+  features
+    throttle_in : in data port Throttle_Input;
+    battery_in  : in data port Battery_Level;
+    speed_in    : in data port Speed_Signal;
+    motor_out   : out data port Motor_Command;
+  end Motor_Control;
+
+  thread implementation Motor_Control.impl
+  end Motor_Control.impl;
+
+
+
+end E_Bike_Controller;
