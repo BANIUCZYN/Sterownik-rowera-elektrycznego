@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance">
+  <instance:SystemInstance name="E_Bike_System_impl_Instance" category="system">
+    <featureInstance name="motor_status" direction="out" type="/4">
+      <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.21/@ownedDataPort.0"/>
+    </featureInstance>
+    <componentInstance name="busline" category="bus">
+      <subcomponent xsi:type="aadl2:BusSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedBusSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:BusImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.CommBus.impl"/>
+    </componentInstance>
+    <componentInstance name="throttle_dev" category="device">
+      <featureInstance name="throttle_out" direction="out" type="/1">
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedDataPort.0"/>
+      </featureInstance>
+      <flowSpecification name="on_flow_src" destination="/0/@componentInstance.1/@featureInstance.0">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Latency"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:RangeValue">
+              <minimum xsi:type="aadl2:IntegerLiteral" value="5">
+                <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              </minimum>
+              <maximum xsi:type="aadl2:IntegerLiteral" value="5">
+                <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              </maximum>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFlowSpecification.0/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.4/@ownedFlowSpecification.0"/>
+      </flowSpecification>
+      <subcomponent xsi:type="aadl2:DeviceSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedDeviceSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:DeviceType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Throttle_Device"/>
+    </componentInstance>
+    <componentInstance name="battery_dev" category="device">
+      <featureInstance name="battery_out" direction="out" type="/2">
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedDataPort.0"/>
+      </featureInstance>
+      <flowSpecification name="on_flow_src" destination="/0/@componentInstance.2/@featureInstance.0">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Latency"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:RangeValue">
+              <minimum xsi:type="aadl2:IntegerLiteral" value="5">
+                <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              </minimum>
+              <maximum xsi:type="aadl2:IntegerLiteral" value="5">
+                <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              </maximum>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedFlowSpecification.0/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.5/@ownedFlowSpecification.0"/>
+      </flowSpecification>
+      <subcomponent xsi:type="aadl2:DeviceSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedDeviceSubcomponent.1"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:DeviceType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Battery_Device"/>
+    </componentInstance>
+    <componentInstance name="speed_dev" category="device">
+      <featureInstance name="speed_out" direction="out" type="/3">
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedDataPort.0"/>
+      </featureInstance>
+      <flowSpecification name="on_flow_src" destination="/0/@componentInstance.3/@featureInstance.0">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Communication_Properties.aadl#Communication_Properties.Latency"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:RangeValue">
+              <minimum xsi:type="aadl2:IntegerLiteral" value="5">
+                <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              </minimum>
+              <maximum xsi:type="aadl2:IntegerLiteral" value="5">
+                <unit href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/AADL_Project.aadl#/0/@ownedPropertyType.16/@ownedLiteral.3"/>
+              </maximum>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFlowSpecification.0/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.6/@ownedFlowSpecification.0"/>
+      </flowSpecification>
+      <subcomponent xsi:type="aadl2:DeviceSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedDeviceSubcomponent.2"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:DeviceType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Speed_Sensor"/>
+    </componentInstance>
+    <componentInstance name="motor_dev" category="device">
+      <featureInstance name="motor_in" type="/4">
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedDataPort.0"/>
+      </featureInstance>
+      <flowSpecification name="on_flow_sink" source="/0/@componentInstance.4/@featureInstance.0">
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.7/@ownedFlowSpecification.0"/>
+      </flowSpecification>
+      <subcomponent xsi:type="aadl2:DeviceSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedDeviceSubcomponent.3"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:DeviceType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Motor_Driver"/>
+    </componentInstance>
+    <componentInstance name="ram" category="memory">
+      <subcomponent xsi:type="aadl2:MemorySubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedMemorySubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:MemoryType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.ECU_RAM"/>
+    </componentInstance>
+    <componentInstance name="controller" category="process">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.7"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.0"/>
+      </ownedPropertyAssociation>
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+      </ownedPropertyAssociation>
+      <featureInstance name="throttle" type="/1">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedDataPort.0"/>
+      </featureInstance>
+      <featureInstance name="battery" type="/2">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedDataPort.1"/>
+      </featureInstance>
+      <featureInstance name="speed_sensor" type="/3">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedDataPort.2"/>
+      </featureInstance>
+      <featureInstance name="motor_out" direction="out" type="/4">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedDataPort.3"/>
+      </featureInstance>
+      <componentInstance name="throttle_thread" category="thread">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.7"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <featureInstance name="throttle_in" type="/1">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedDataPort.0"/>
+        </featureInstance>
+        <featureInstance name="throttle_out" direction="out" type="/1">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedDataPort.1"/>
+        </featureInstance>
+        <flowSpecification name="f_th_in" source="/0/@componentInstance.6/@componentInstance.0/@featureInstance.0">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedFlowSpecification.0"/>
+        </flowSpecification>
+        <flowSpecification name="f_th_out" destination="/0/@componentInstance.6/@componentInstance.0/@featureInstance.1">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.8/@ownedFlowSpecification.1"/>
+        </flowSpecification>
+        <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedThreadSubcomponent.0"/>
+        <index>0</index>
+        <classifier xsi:type="aadl2:ThreadImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Throttle_Reader.impl"/>
+      </componentInstance>
+      <componentInstance name="control_thread" category="thread">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.7"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <featureInstance name="throttle_in" type="/1">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.0"/>
+        </featureInstance>
+        <featureInstance name="battery_in" type="/2">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.1"/>
+        </featureInstance>
+        <featureInstance name="speed_in" type="/3">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.2"/>
+        </featureInstance>
+        <featureInstance name="motor_out" direction="out" type="/4">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedDataPort.3"/>
+        </featureInstance>
+        <flowSpecification name="f_ctrl_th_in" source="/0/@componentInstance.6/@componentInstance.1/@featureInstance.0">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedFlowSpecification.0"/>
+        </flowSpecification>
+        <flowSpecification name="f_ctrl_bat_in" source="/0/@componentInstance.6/@componentInstance.1/@featureInstance.1">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedFlowSpecification.1"/>
+        </flowSpecification>
+        <flowSpecification name="f_ctrl_spd_in" source="/0/@componentInstance.6/@componentInstance.1/@featureInstance.2">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedFlowSpecification.2"/>
+        </flowSpecification>
+        <flowSpecification name="f_ctrl_m_out" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.3">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.10/@ownedFlowSpecification.3"/>
+        </flowSpecification>
+        <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedThreadSubcomponent.1"/>
+        <index>0</index>
+        <classifier xsi:type="aadl2:ThreadImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Motor_Control.impl"/>
+      </componentInstance>
+      <componentInstance name="battery_thread" category="thread">
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Processor_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.7"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.0"/>
+        </ownedPropertyAssociation>
+        <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+          <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+          <ownedValue>
+            <ownedValue xsi:type="aadl2:ListValue">
+              <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+            </ownedValue>
+          </ownedValue>
+          <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+        </ownedPropertyAssociation>
+        <featureInstance name="battery_in" type="/2">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedDataPort.0"/>
+        </featureInstance>
+        <featureInstance name="battery_out" direction="out" type="/2">
+          <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+            <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Memory_Binding"/>
+            <ownedValue>
+              <ownedValue xsi:type="aadl2:ListValue">
+                <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.5"/>
+              </ownedValue>
+            </ownedValue>
+            <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.1"/>
+          </ownedPropertyAssociation>
+          <feature xsi:type="aadl2:DataPort" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedDataPort.1"/>
+        </featureInstance>
+        <flowSpecification name="f_bat_in" source="/0/@componentInstance.6/@componentInstance.2/@featureInstance.0">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFlowSpecification.0"/>
+        </flowSpecification>
+        <flowSpecification name="f_bat_out" destination="/0/@componentInstance.6/@componentInstance.2/@featureInstance.1">
+          <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.9/@ownedFlowSpecification.1"/>
+        </flowSpecification>
+        <subcomponent xsi:type="aadl2:ThreadSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedThreadSubcomponent.2"/>
+        <index>0</index>
+        <classifier xsi:type="aadl2:ThreadImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Battery_Monitor.impl"/>
+      </componentInstance>
+      <flowSpecification name="flow_throttle" source="/0/@componentInstance.6/@featureInstance.0" destination="/0/@componentInstance.6/@featureInstance.3">
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedFlowSpecification.0"/>
+      </flowSpecification>
+      <flowSpecification name="flow_battery" source="/0/@componentInstance.6/@featureInstance.1" destination="/0/@componentInstance.6/@featureInstance.3">
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedFlowSpecification.1"/>
+      </flowSpecification>
+      <flowSpecification name="flow_speed" source="/0/@componentInstance.6/@featureInstance.2" destination="/0/@componentInstance.6/@featureInstance.3">
+        <flowSpecification href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.14/@ownedFlowSpecification.2"/>
+      </flowSpecification>
+      <connectionInstance name="throttle_thread.throttle_out -> control_thread.throttle_in" complete="true" kind="portConnection" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.0" source="/0/@componentInstance.6/@componentInstance.0/@featureInstance.1">
+        <connectionReference context="/0/@componentInstance.6" source="/0/@componentInstance.6/@componentInstance.0/@featureInstance.1" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.0">
+          <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPortConnection.3"/>
+        </connectionReference>
+      </connectionInstance>
+      <connectionInstance name="battery_thread.battery_out -> control_thread.battery_in" complete="true" kind="portConnection" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.1" source="/0/@componentInstance.6/@componentInstance.2/@featureInstance.1">
+        <connectionReference context="/0/@componentInstance.6" source="/0/@componentInstance.6/@componentInstance.2/@featureInstance.1" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.1">
+          <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPortConnection.4"/>
+        </connectionReference>
+      </connectionInstance>
+      <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedProcessSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:ProcessImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.E_Bike_Process.impl"/>
+    </componentInstance>
+    <componentInstance name="cpu" category="processor">
+      <subcomponent xsi:type="aadl2:ProcessorSubcomponent" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedProcessorSubcomponent.0"/>
+      <index>0</index>
+      <classifier xsi:type="aadl2:ProcessorImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.ECU.impl"/>
+    </componentInstance>
+    <connectionInstance name="throttle_dev.throttle_out -> controller.throttle_thread.throttle_in" complete="true" kind="portConnection" destination="/0/@componentInstance.6/@componentInstance.0/@featureInstance.0" source="/0/@componentInstance.1/@featureInstance.0">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Connection_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.0"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.2"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="/0" source="/0/@componentInstance.1/@featureInstance.0" destination="/0/@componentInstance.6/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPortConnection.0"/>
+      </connectionReference>
+      <connectionReference context="/0/@componentInstance.6" source="/0/@componentInstance.6/@featureInstance.0" destination="/0/@componentInstance.6/@componentInstance.0/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPortConnection.0"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="battery_dev.battery_out -> controller.battery_thread.battery_in" complete="true" kind="portConnection" destination="/0/@componentInstance.6/@componentInstance.2/@featureInstance.0" source="/0/@componentInstance.2/@featureInstance.0">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Connection_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.0"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.2"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="/0" source="/0/@componentInstance.2/@featureInstance.0" destination="/0/@componentInstance.6/@featureInstance.1">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPortConnection.1"/>
+      </connectionReference>
+      <connectionReference context="/0/@componentInstance.6" source="/0/@componentInstance.6/@featureInstance.1" destination="/0/@componentInstance.6/@componentInstance.2/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPortConnection.1"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="speed_dev.speed_out -> controller.control_thread.speed_in" complete="true" kind="portConnection" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.2" source="/0/@componentInstance.3/@featureInstance.0">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Connection_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.0"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.2"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="/0" source="/0/@componentInstance.3/@featureInstance.0" destination="/0/@componentInstance.6/@featureInstance.2">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPortConnection.2"/>
+      </connectionReference>
+      <connectionReference context="/0/@componentInstance.6" source="/0/@componentInstance.6/@featureInstance.2" destination="/0/@componentInstance.6/@componentInstance.1/@featureInstance.2">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPortConnection.2"/>
+      </connectionReference>
+    </connectionInstance>
+    <connectionInstance name="controller.control_thread.motor_out -> motor_dev.motor_in" complete="true" kind="portConnection" destination="/0/@componentInstance.4/@featureInstance.0" source="/0/@componentInstance.6/@componentInstance.1/@featureInstance.3">
+      <ownedPropertyAssociation xsi:type="instance:PropertyAssociationInstance">
+        <property href="platform:/plugin/org.osate.aadl2.contrib/resources/properties/Predeclared_Property_Sets/Deployment_Properties.aadl#Deployment_Properties.Actual_Connection_Binding"/>
+        <ownedValue>
+          <ownedValue xsi:type="aadl2:ListValue">
+            <ownedListElement xsi:type="instance:InstanceReferenceValue" referencedInstanceObject="/0/@componentInstance.0"/>
+          </ownedValue>
+        </ownedValue>
+        <propertyAssociation href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPropertyAssociation.2"/>
+      </ownedPropertyAssociation>
+      <connectionReference context="/0/@componentInstance.6" source="/0/@componentInstance.6/@componentInstance.1/@featureInstance.3" destination="/0/@componentInstance.6/@featureInstance.3">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.15/@ownedPortConnection.5"/>
+      </connectionReference>
+      <connectionReference context="/0" source="/0/@componentInstance.6/@featureInstance.3" destination="/0/@componentInstance.4/@featureInstance.0">
+        <connection xsi:type="aadl2:PortConnection" href="../Sterownig_rowero_ele_pkg.aadl#/0/@ownedPublicSection/@ownedClassifier.22/@ownedPortConnection.3"/>
+      </connectionReference>
+    </connectionInstance>
+    <classifier xsi:type="aadl2:SystemImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.E_Bike_System.impl"/>
+    <systemOperationMode name="No Modes"/>
+    <componentImplementation xsi:type="aadl2:SystemImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.E_Bike_System.impl"/>
+  </instance:SystemInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Throttle_Input" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Throttle_Input"/>
+  </instance:ComponentInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Battery_Level" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Battery_Level"/>
+  </instance:ComponentInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Speed_Signal" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Speed_Signal"/>
+  </instance:ComponentInstance>
+  <instance:ComponentInstance name="E_Bike_Controller::Motor_Command" category="data">
+    <classifier xsi:type="aadl2:DataType" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.Motor_Command"/>
+  </instance:ComponentInstance>
+</xmi:XMI>

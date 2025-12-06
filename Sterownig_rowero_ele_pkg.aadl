@@ -1,82 +1,251 @@
 package E_Bike_Controller
-public
+	public
 
-  -- Typ danych
-  data Battery_Level
-  end Battery_Level;
+---------------------------------------------------------------------
+-- DATA TYPES
+---------------------------------------------------------------------
 
-  data Motor_Command
-  end Motor_Command;
+  	data Battery_Level
+  	end Battery_Level;
 
-  data Throttle_Input
-  end Throttle_Input;
+  	data Motor_Command
+  	end Motor_Command;
 
-  data Speed_Signal
-  end Speed_Signal;
+  	data Throttle_Input
+  	end Throttle_Input;
 
-
-
-  -- Proces główny sterownika
-  process E_Bike_Process
-  features
-    throttle     : in data port Throttle_Input;
-    battery      : in data port Battery_Level;
-    motor_out    : out data port Motor_Command;
-    speed_sensor : in data port Speed_Signal;
-  end E_Bike_Process;
-
-  process implementation E_Bike_Process.impl
-    subcomponents
-      throttle_thread : thread Throttle_Reader.impl;
-      control_thread  : thread Motor_Control.impl;
-      battery_thread  : thread Battery_Monitor.impl;
-    connections
-      c1 : port throttle -> throttle_thread.throttle_in;
-      c2 : port battery -> battery_thread.battery_in;
-      c3 : port speed_sensor -> control_thread.speed_in;
-      c4 : port throttle_thread.throttle_out -> control_thread.throttle_in;
-      c5 : port battery_thread.battery_out -> control_thread.battery_in;
-      c6 : port control_thread.motor_out -> motor_out;
-  end E_Bike_Process.impl;
+  	data Speed_Signal
+  	end Speed_Signal;
+  
+  	--data PAS_sensor
+  	--end PAS_sensor;
 
 
+---------------------------------------------------------------------
+-- DEVICES (ze źródłami / sinkami przepływu)
+---------------------------------------------------------------------
 
-  -- Wątek odczytu manetki
-  thread Throttle_Reader
-  features
-    throttle_in  : in data port Throttle_Input;
-    throttle_out : out data port Throttle_Input;
-  end Throttle_Reader;
+ 	device Throttle_Device
+  		features
+    		throttle_out : out data port Throttle_Input;
+  		flows
+    		on_flow_src : flow source throttle_out { latency => 5 ms .. 5 ms; };
+  	end Throttle_Device;
 
-  thread implementation Throttle_Reader.impl
-  end Throttle_Reader.impl;
+  	device Battery_Device
+  		features
+    		battery_out : out data port Battery_Level;
+  		flows
+    		on_flow_src : flow source battery_out { latency => 5 ms .. 5 ms; };
+  	end Battery_Device;
+
+  	device Speed_Sensor
+  		features
+    		speed_out : out data port Speed_Signal;
+  		flows
+    		on_flow_src : flow source speed_out { latency => 5 ms .. 5 ms; };
+  	end Speed_Sensor;
+
+  	device Motor_Driver
+  		features
+    		motor_in : in data port Motor_Command;
+  		flows
+    		on_flow_sink : flow sink motor_in;
+  	end Motor_Driver;
 
 
+---------------------------------------------------------------------
+-- THREAD SPECIFICATIONS (definicje flow elements)
+---------------------------------------------------------------------
 
-  -- Wątek monitorujący baterię
-  thread Battery_Monitor
-  features
-    battery_in  : in data port Battery_Level;
-    battery_out : out data port Battery_Level;
-  end Battery_Monitor;
-
-  thread implementation Battery_Monitor.impl
-  end Battery_Monitor.impl;
-
+  	thread Throttle_Reader
+  		features
+    		throttle_in  : in  data port Throttle_Input;
+    		throttle_out : out data port Throttle_Input;
+  		flows
+    		f_th_in  : flow sink  throttle_in;
+    		f_th_out : flow source throttle_out;
+  	end Throttle_Reader;
 
 
-  -- Wątek głównej logiki sterowania silnikiem
-  thread Motor_Control
-  features
-    throttle_in : in data port Throttle_Input;
-    battery_in  : in data port Battery_Level;
-    speed_in    : in data port Speed_Signal;
-    motor_out   : out data port Motor_Command;
-  end Motor_Control;
+  	thread Battery_Monitor
+  		features
+    		battery_in  : in  data port Battery_Level;
+    		battery_out : out data port Battery_Level;
+  		flows
+    		f_bat_in  : flow sink  battery_in;
+    		f_bat_out : flow source battery_out;
+  	end Battery_Monitor;
 
-  thread implementation Motor_Control.impl
-  end Motor_Control.impl;
 
+  	thread Motor_Control
+  		features
+    		throttle_in : in  data port Throttle_Input;
+    		battery_in  : in  data port Battery_Level;
+    		speed_in    : in  data port Speed_Signal;
+    		motor_out   : out data port Motor_Command;
+  		flows
+    		f_ctrl_th_in : flow sink  throttle_in;
+    		f_ctrl_bat_in: flow sink  battery_in;
+    		f_ctrl_spd_in: flow sink  speed_in;
+    		f_ctrl_m_out : flow source motor_out;
+  	end Motor_Control;
+
+
+---------------------------------------------------------------------
+-- THREAD IMPLEMENTATIONS
+---------------------------------------------------------------------
+
+  	thread implementation Throttle_Reader.impl
+  	end Throttle_Reader.impl;
+
+  	thread implementation Battery_Monitor.impl
+  	end Battery_Monitor.impl;
+
+  	thread implementation Motor_Control.impl
+  	end Motor_Control.impl;
+
+
+---------------------------------------------------------------------
+-- PROCESS SPECIFICATION (interfejs procesu)
+---------------------------------------------------------------------
+
+  	process E_Bike_Process
+  		features
+    		throttle     : in  data port Throttle_Input;
+    		battery      : in  data port Battery_Level;
+    		speed_sensor : in  data port Speed_Signal;
+    		motor_out    : out data port Motor_Command;
+    	flows
+    		flow_throttle : flow path throttle -> motor_out;
+    		flow_battery  : flow path battery  -> motor_out;
+    		flow_speed    : flow path speed_sensor -> motor_out;
+  	end E_Bike_Process;
+
+
+---------------------------------------------------------------------
+-- PROCESS IMPLEMENTATION (poprawione flow path)
+---------------------------------------------------------------------
+
+  	process implementation E_Bike_Process.impl
+  		subcomponents
+    		throttle_thread : thread Throttle_Reader.impl;
+    		control_thread  : thread Motor_Control.impl;
+    		battery_thread  : thread Battery_Monitor.impl;
+
+  		connections
+    		-- połączenia portów procesu do threadów
+    		c1 : port throttle -> throttle_thread.throttle_in;
+    		c2 : port battery -> battery_thread.battery_in;
+    		c3 : port speed_sensor -> control_thread.speed_in;
+
+    		-- połączenia pomiędzy threadami wewnątrz procesu
+    		c4 : port throttle_thread.throttle_out -> control_thread.throttle_in;
+    		c5 : port battery_thread.battery_out -> control_thread.battery_in;
+
+    		-- wyjście procesu do zewnętrznego portu motor_out
+    		c6 : port control_thread.motor_out -> motor_out;
+
+--		flows
+--    		-- 	przepływ manetki (od procesu.feature throttle do motor_out) — korzystamy z portów (features)
+--    		flow_throttle : flow path
+--      		throttle -> c1 ->
+--      		throttle_thread.f_th_in -> c4 ->
+--      		control_thread.f_ctrl_m_out -> c6 ->
+--      		motor_out;
+--
+--    		-- przepływ baterii (porty)
+--    		flow_battery : flow path
+--      		battery -> c2 ->
+--      		battery_thread.battery_out -> c5 ->
+--      		control_thread.motor_out -> c6 ->
+--      		motor_out;
+
+--    		-- przepływ prędkości (sensor -> control -> motor)
+--    		flow_speed : flow path
+--      		speed_sensor -> c3 ->
+--      		control_thread.motor_out -> c6 ->
+--      		motor_out;
+
+  	end E_Bike_Process.impl;
+
+
+---------------------------------------------------------------------
+-- PROCESSOR, MEMORY, BUS (z kwalifikowanymi property)
+---------------------------------------------------------------------
+
+  	processor ECU
+  	end ECU;
+
+  	processor implementation ECU.impl
+    	--properties
+      		--Scheduling_Properties::Scheduling_Protocol => Rate_Monotonic;
+      		--Scheduling_Properties::Clock_Period => 1 ms;
+  	end ECU.impl;
+
+
+  	memory ECU_RAM
+  	end ECU_RAM;
+
+
+  	bus CommBus
+  	end CommBus;
+
+  	bus implementation CommBus.impl
+    	--properties
+      		--Deployment_Properties::Transmission_Type => Timed;
+  	end CommBus.impl;
+
+
+---------------------------------------------------------------------
+-- SYSTEM SPECIFICATION
+---------------------------------------------------------------------
+
+  	system E_Bike_System
+  		features
+    		motor_status : out data port Motor_Command;
+  	end E_Bike_System;
+
+
+---------------------------------------------------------------------
+-- SYSTEM IMPLEMENTATION (end-to-end flows)
+---------------------------------------------------------------------
+
+  	system implementation E_Bike_System.impl
+  		subcomponents
+    		throttle_dev : device Throttle_Device;
+    		battery_dev  : device Battery_Device;
+    		speed_dev    : device Speed_Sensor;
+    		motor_dev    : device Motor_Driver;
+
+    		controller : process E_Bike_Process.impl;
+
+    		cpu     : processor ECU.impl;
+    		ram     : memory ECU_RAM;
+    		busline : bus CommBus.impl;
+
+  		connections
+    		d1 : port throttle_dev.throttle_out -> controller.throttle;
+    		d2 : port battery_dev.battery_out -> controller.battery;
+    		d3 : port speed_dev.speed_out -> controller.speed_sensor;
+    		d4 : port controller.motor_out -> motor_dev.motor_in;
+
+  		properties
+    		Actual_Processor_Binding => (reference (cpu)) applies to controller;
+    		Actual_Memory_Binding    => (reference (ram)) applies to controller;
+    		Actual_Connection_Binding => (reference (busline)) applies to d1, d2, d3, d4;
+
+--  		flows
+--    		e2e_throttle : end to end flow
+--      		throttle_dev.on_flow_src -> d1 -> controller.flow_throttle -> d4 -> motor_dev.on_flow_sink { latency => 5 ms .. 10 ms; };
+--
+--    		e2e_battery : end to end flow
+--      		battery_dev.on_flow_src -> d2 -> controller.flow_battery -> d4 -> motor_dev.on_flow_sink { latency => 5 ms .. 10 ms; };
+--
+--    		e2e_speed : end to end flow
+--      		speed_dev.on_flow_src -> d3 -> controller.flow_speed -> d4 -> motor_dev.on_flow_sink { latency => 5 ms .. 10 ms; };
+
+  	end E_Bike_System.impl;
 
 
 end E_Bike_Controller;

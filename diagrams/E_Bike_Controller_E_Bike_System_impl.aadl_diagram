@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="d605568d-85a7-4cf5-ac43-56b81d27ef64" manual="true">
+    <element uuid="71e273ea-9cfa-439c-800e-e9907a141afe" manual="true">
+      <element uuid="b49efe21-a667-4351-bee3-eecf1b4bb08e" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>d1</seg>
+      </bo>
+      <bendpoints>
+        <point x="395.35809326171875" y="383.0"/>
+        <point x="395.35809326171875" y="323.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="fda2b90f-63da-4f14-934f-1a9be864b0ed" manual="true">
+      <element uuid="76418a6b-897d-4486-8fad-3a207523e7a9" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>d2</seg>
+      </bo>
+    </element>
+    <element uuid="5fcaad79-60ee-4a57-b5e9-4dd86ceb69c7" manual="true">
+      <element uuid="ee2fd97e-2261-4519-8950-382b946005b6" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>d3</seg>
+      </bo>
+      <bendpoints>
+        <point x="395.35809326171875" y="163.0"/>
+        <point x="395.35809326171875" y="223.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="e68f68fc-74dc-4f2e-b131-1f3e8b74f45a" manual="true">
+      <element uuid="ee492a8d-ea26-4ad6-8e96-bbbd1bb76457" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>d4</seg>
+      </bo>
+    </element>
+    <element uuid="89f2c31c-97cf-4d8b-ac18-8ab9ada6d84c" manual="true" dockArea="left">
+      <bo>
+        <seg>feature</seg>
+        <seg>motor_status</seg>
+      </bo>
+      <position y="187.5"/>
+    </element>
+    <element uuid="760e61a1-2a44-4cd2-82bc-ca2bf4362526" manual="true">
+      <element uuid="852d288d-ce1e-4837-b440-eb4ab55ea5e7" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>battery_out</seg>
+        </bo>
+        <position x="205.57552337646484" y="38.0"/>
+      </element>
+      <element uuid="fc811841-ceae-4333-9920-8f5f8b519405" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>on_flow_src</seg>
+        </bo>
+        <position x="90.71224212646484" y="70.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>battery_dev</seg>
+      </bo>
+      <position x="101.07030487060547" y="203.0"/>
+      <size width="284.2877655029297" height="90.0"/>
+    </element>
+    <element uuid="de4f8551-5ba9-40d0-ad7f-2dc2506c9488" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>busline</seg>
+      </bo>
+      <position x="299.9075393676758" y="38.0"/>
+      <size width="99.44140243530273" height="35.0"/>
+    </element>
+    <element uuid="0e5d0f20-74bd-4351-9bf4-7fe7e6f7f025" manual="true">
+      <element uuid="d35dba89-8688-42f1-bc83-0e609d48543c" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>battery</seg>
+        </bo>
+        <position y="88.0"/>
+      </element>
+      <element uuid="888ed586-7079-43e9-bd61-eb4a5c1cee86" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>motor_out</seg>
+        </bo>
+        <position x="417.0520782470703" y="88.0"/>
+      </element>
+      <element uuid="42d25761-d7c6-4566-8f52-f360e43b3091" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>speed_sensor</seg>
+        </bo>
+        <position y="38.0"/>
+      </element>
+      <element uuid="665ed269-9655-46d4-bcea-0bca879bd23e" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>throttle</seg>
+        </bo>
+        <position y="138.0"/>
+      </element>
+      <element uuid="d26f83a2-4591-4746-8233-e04438a5bf11" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>flow_battery</seg>
+        </bo>
+      </element>
+      <element uuid="07b9e07a-6a2e-44b9-b36f-f3892df784ac" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>flow_speed</seg>
+        </bo>
+        <bendpoints>
+          <point x="704.6471557617188" y="223.0"/>
+          <point x="704.6471557617188" y="273.0"/>
+        </bendpoints>
+      </element>
+      <element uuid="0f1e602b-b34e-4298-974e-940440ce76d8" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>flow_throttle</seg>
+        </bo>
+        <bendpoints>
+          <point x="704.6471557617188" y="323.0"/>
+          <point x="704.6471557617188" y="273.0"/>
+        </bendpoints>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>controller</seg>
+      </bo>
+      <position x="405.3580856323242" y="153.0"/>
+      <size width="489.0846252441406" height="190.0"/>
+    </element>
+    <element uuid="caf81479-f98a-4654-9871-df7b00daa8f5" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>cpu</seg>
+      </bo>
+      <position x="101.07030487060547" y="38.0"/>
+      <size width="78.68619537353516" height="35.0"/>
+    </element>
+    <element uuid="cfef78ea-6a4b-4460-ba61-24811c44e528" manual="true">
+      <element uuid="d6fac15a-8ce1-49bb-9ef4-89d89d5f240e" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>motor_in</seg>
+        </bo>
+        <position y="38.0"/>
+      </element>
+      <element uuid="3e6f609d-4d1f-4bda-a813-1d40a57e1ed2" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>on_flow_sink</seg>
+        </bo>
+        <position x="193.6249885559082" y="70.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>motor_dev</seg>
+      </bo>
+      <position x="914.442741394043" y="203.0"/>
+      <size width="269.49998474121094" height="90.0"/>
+    </element>
+    <element uuid="0a7d9896-1281-4cd2-b047-5a3f6462723b" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>ram</seg>
+      </bo>
+      <position x="199.75650024414062" y="38.0"/>
+      <size width="80.15103912353516" height="35.0"/>
+    </element>
+    <element uuid="40f8cccb-2ec5-4333-a889-1034d7a8d992" manual="true">
+      <element uuid="913bed35-002f-4f00-9078-6a8c9a68a63e" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>speed_out</seg>
+        </bo>
+        <position x="196.70831680297852" y="38.0"/>
+      </element>
+      <element uuid="e5ae5ebc-4dde-4657-b866-2d0d9e157a53" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>on_flow_src</seg>
+        </bo>
+        <position x="86.27863693237305" y="70.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>speed_dev</seg>
+      </bo>
+      <position x="114.3711166381836" y="93.0"/>
+      <size width="270.98695373535156" height="90.0"/>
+    </element>
+    <element uuid="1b925d15-5c4d-444f-ae38-dc2a7b5f3e7d" manual="true">
+      <element uuid="d1c04c56-98a2-4d20-8cae-cb34ac8d78d0" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>throttle_out</seg>
+        </bo>
+        <position x="205.57550811767578" y="38.0"/>
+      </element>
+      <element uuid="7fec0310-5a6e-4e5d-91a4-02ec83a2e39f" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>on_flow_src</seg>
+        </bo>
+        <position x="90.71223449707031" y="70.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>throttle_dev</seg>
+      </bo>
+      <position x="101.07032775878906" y="313.0"/>
+      <size width="284.2877426147461" height="90.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>E_Bike_System.impl</seg>
+    </bo>
+    <position/>
+    <size width="1285.0130462646484" height="415.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>E_Bike_Controller::E_Bike_System.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>
