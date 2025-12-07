@@ -1,0 +1,29 @@
+Bus load analysis of E_Bike_System_impl_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"busline","0.0","0.0","0.0","0.0"
+
+"Bus busline has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"throttle_dev.throttle_out -> controller.throttle_thread.throttle_in","","0.0","","0.0"
+"battery_dev.battery_out -> controller.battery_thread.battery_in","","0.0","","0.0"
+"speed_dev.speed_out -> controller.control_thread.speed_in","","0.0","","0.0"
+"controller.control_thread.motor_out -> motor_dev.motor_in","","0.0","","0.0"
+
+"WARNING: Bus busline has no capacity"
+"WARNING: Bus busline has no bandwidth budget"
+
+"Connection throttle_dev.throttle_out -> controller.throttle_thread.throttle_in bound to busline"
+"WARNING: Connection throttle_dev.throttle_out -> controller.throttle_thread.throttle_in has no bandwidth budget"
+
+"Connection battery_dev.battery_out -> controller.battery_thread.battery_in bound to busline"
+"WARNING: Connection battery_dev.battery_out -> controller.battery_thread.battery_in has no bandwidth budget"
+
+"Connection speed_dev.speed_out -> controller.control_thread.speed_in bound to busline"
+"WARNING: Connection speed_dev.speed_out -> controller.control_thread.speed_in has no bandwidth budget"
+
+"Connection controller.control_thread.motor_out -> motor_dev.motor_in bound to busline"
+"WARNING: Connection controller.control_thread.motor_out -> motor_dev.motor_in has no bandwidth budget"
+
+

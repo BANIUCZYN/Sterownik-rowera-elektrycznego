@@ -1,0 +1,13 @@
+Bus load analysis of CommBus_impl_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"CommBus_impl_Instance","0.0","0.0","0.0","0.0"
+
+"Bus CommBus_impl_Instance has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus CommBus_impl_Instance has no capacity"
+"WARNING: Bus CommBus_impl_Instance has no bandwidth budget"
+
+
