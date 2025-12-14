@@ -283,7 +283,7 @@ E_Bike_System.impl
 ### Diagram przepływu danych
 
 ```
-<img width="1386" height="936" alt="image" src="https://github.com/user-attachments/assets/4cda161c-f170-46e6-8dd2-2eac7dfbf6ac" />
+![alt text](https://github.com/BANIUCZYN/Sterownik-rowera-elektrycznego/blob/origin/E_Bike_System.png?raw=true)
 ```
 
 ---
