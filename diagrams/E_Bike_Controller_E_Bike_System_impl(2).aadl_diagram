@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="53327c53-4cff-4c66-83c3-a47be94ce6c7" manual="true">
+    <element uuid="88d01362-4b6f-4f80-a9cd-bd91454c2653" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bus_ctrl_can</seg>
+      </bo>
+      <bendpoints>
+        <point x="144.79428100585938" y="288.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="43a108d0-3956-4f5f-b858-5c2f3377d074" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bus_mtr_can</seg>
+      </bo>
+      <bendpoints>
+        <point x="148.79428100585938" y="276.3333435058594"/>
+        <point x="154.79428100585938" y="276.3333435058594"/>
+        <point x="154.79428100585938" y="147.0"/>
+        <point x="721.287841796875" y="147.0"/>
+        <point x="721.287841796875" y="168.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="675d3897-35c5-435e-8123-5ff19963b4b9" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bus_pwr_bat</seg>
+      </bo>
+      <bendpoints>
+        <point x="144.79428100585938" y="119.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="4386cdb7-f551-4c74-bce8-3c44d481bfff" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bus_pwr_ctrl</seg>
+      </bo>
+      <bendpoints>
+        <point x="148.79428100585938" y="129.0"/>
+        <point x="164.79428100585938" y="129.0"/>
+        <point x="164.79428100585938" y="228.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="cdfccfdc-5f2d-4094-96db-3aaa5d61b8d0" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>bus_pwr_mtr</seg>
+      </bo>
+      <bendpoints>
+        <point x="148.79428100585938" y="109.0"/>
+        <point x="154.79428100585938" y="109.0"/>
+        <point x="154.79428100585938" y="66.0"/>
+        <point x="721.2877807617188" y="66.0"/>
+        <point x="721.2877807617188" y="108.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="82564d1a-6903-400d-bb74-503fdb0d7a99" manual="true">
+      <element uuid="16731f4a-d8d5-44a1-b6af-1cbd9354e7d3" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>command_link</seg>
+      </bo>
+    </element>
+    <element uuid="1f8ad7f7-d011-437a-a4b5-f88635e79c90" manual="true">
+      <element uuid="e360295c-0926-4e7a-815d-ad1845a41cd1" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>dc_output</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>battery</seg>
+      </bo>
+      <position x="174.79428100585938" y="77.0"/>
+      <size width="239.08592224121094" height="60.0"/>
+    </element>
+    <element uuid="05e2fcd8-2e20-4182-a7d9-a31e945b28c9" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>can_cable</seg>
+      </bo>
+      <position x="26.817726135253906" y="264.6666666666667"/>
+      <size width="117.97655487060547" height="35.0"/>
+    </element>
+    <element uuid="1ae36d3e-7bed-4e76-96e1-79ceb197c222" manual="true">
+      <element uuid="ab7621ec-fba9-4275-926a-45fbda827f82" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>can_port</seg>
+        </bo>
+        <position y="98.0"/>
+      </element>
+      <element uuid="60bafe57-a94c-4d0a-b86e-a8b6a68e423e" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>command_output</seg>
+        </bo>
+        <position x="421.4661560058594" y="38.0"/>
+      </element>
+      <element uuid="77845355-6561-4814-bcd1-4b432d59e9e1" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>power_port</seg>
+        </bo>
+        <position y="38.0"/>
+      </element>
+      <element uuid="1d147e52-90ea-4ce9-b0c2-c132848fcb46" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>source_flow</seg>
+        </bo>
+        <position x="294.43880462646484" y="70.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>controller_module</seg>
+      </bo>
+      <position x="174.79428100585938" y="158.0"/>
+      <size width="536.4935073852539" height="150.0"/>
+    </element>
+    <element uuid="51693a96-fd19-47c2-8628-6d7372467ee1" manual="true">
+      <element uuid="2c85c478-b387-4ec6-8485-5691fb0b324e" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>can_port</seg>
+        </bo>
+        <position y="98.0"/>
+      </element>
+      <element uuid="1e8a33e5-1615-44e1-b969-952f08b999ef" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>command_input</seg>
+        </bo>
+        <position y="158.0"/>
+      </element>
+      <element uuid="533c2fde-9634-4213-9e3e-cde67805718b" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>power_port</seg>
+        </bo>
+        <position y="38.0"/>
+      </element>
+      <element uuid="89d3528d-9a61-40f6-9829-27ed22f51b59" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>sink_flow</seg>
+        </bo>
+        <position x="322.60939025878906" y="190.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>motor_module</seg>
+      </bo>
+      <position x="731.2877807617188" y="38.0"/>
+      <size width="441.47918701171875" height="210.0"/>
+    </element>
+    <element uuid="382696a9-5bb4-42d1-a7c8-c707b5667dda" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>power_cable</seg>
+      </bo>
+      <position x="12.0" y="99.0"/>
+      <size width="132.79428100585938" height="40.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>E_Bike_System.impl</seg>
+    </bo>
+    <position/>
+    <size width="1184.7669677734375" height="320.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>E_Bike_Controller::E_Bike_System.impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

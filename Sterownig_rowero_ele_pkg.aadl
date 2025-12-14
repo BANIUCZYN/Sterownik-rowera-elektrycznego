@@ -1,251 +1,584 @@
 package E_Bike_Controller
-	public
 
----------------------------------------------------------------------
--- DATA TYPES
----------------------------------------------------------------------
+public
+    with Base_Types;
+    with Data_Model;
+    with SEI;
 
-  	data Battery_Level
-  	end Battery_Level;
+    -------------------------------------------------------------------------
+    -- 1. DATA TYPES
+    -------------------------------------------------------------------------
 
-  	data Motor_Command
-  	end Motor_Command;
+    data Ride_Data
+    end Ride_Data;
 
-  	data Throttle_Input
-  	end Throttle_Input;
+    data implementation Ride_Data.impl
+        subcomponents
+            Speed          : data Base_Types::Float;
+            Distance       : data Base_Types::Float;
+            Cadence        : data Base_Types::Integer;
+            Battery_Level  : data Base_Types::Float;
+    end Ride_Data.impl;
 
-  	data Speed_Signal
-  	end Speed_Signal;
-  
-  	--data PAS_sensor
-  	--end PAS_sensor;
+    data Motor_Command
+        properties Data_Model::Data_Representation => Struct;
+    end Motor_Command;
+    
+    data implementation Motor_Command.impl
+        subcomponents
+            Motor_Power    : data Base_Types::Integer;
+            Assist_Mode    : data Base_Types::Integer;
+            Regen_Braking  : data Base_Types::Boolean;
+    end Motor_Command.impl;
 
+    -------------------------------------------------------------------------
+    -- 2. BUSES
+    -------------------------------------------------------------------------
 
----------------------------------------------------------------------
--- DEVICES (ze źródłami / sinkami przepływu)
----------------------------------------------------------------------
+    bus CAN_Bus
+        properties
+            SEI::BandWidthCapacity => 1.0 MBytesps;
+            Latency => 1 ms .. 3 ms;
+    end CAN_Bus;
 
- 	device Throttle_Device
-  		features
-    		throttle_out : out data port Throttle_Input;
-  		flows
-    		on_flow_src : flow source throttle_out { latency => 5 ms .. 5 ms; };
-  	end Throttle_Device;
+    bus System_Bus
+        properties
+            SEI::BandWidthCapacity => 100.0 MBytesps;
+            Latency => 1 ns .. 5 ns;
+    end System_Bus;
 
-  	device Battery_Device
-  		features
-    		battery_out : out data port Battery_Level;
-  		flows
-    		on_flow_src : flow source battery_out { latency => 5 ms .. 5 ms; };
-  	end Battery_Device;
+    bus SPI_Bus
+        properties
+            SEI::BandWidthCapacity => 10.0 MBytesps;
+            Latency => 2 ms .. 5 ms;
+    end SPI_Bus;
 
-  	device Speed_Sensor
-  		features
-    		speed_out : out data port Speed_Signal;
-  		flows
-    		on_flow_src : flow source speed_out { latency => 5 ms .. 5 ms; };
-  	end Speed_Sensor;
+    bus Power_Bus
+        properties
+            SEI::PowerCapacity => 500.0 w;
+    end Power_Bus;
 
-  	device Motor_Driver
-  		features
-    		motor_in : in data port Motor_Command;
-  		flows
-    		on_flow_sink : flow sink motor_in;
-  	end Motor_Driver;
+    bus Local_Bus
+    end Local_Bus;
 
+    -------------------------------------------------------------------------
+    -- 3. MEMORY
+    -------------------------------------------------------------------------
 
----------------------------------------------------------------------
--- THREAD SPECIFICATIONS (definicje flow elements)
----------------------------------------------------------------------
+    memory Flash_Type
+        properties Memory_Size => 1 MByte;
+    end Flash_Type;
 
-  	thread Throttle_Reader
-  		features
-    		throttle_in  : in  data port Throttle_Input;
-    		throttle_out : out data port Throttle_Input;
-  		flows
-    		f_th_in  : flow sink  throttle_in;
-    		f_th_out : flow source throttle_out;
-  	end Throttle_Reader;
+    memory RAM_Type
+        properties Memory_Size => 256 KByte;
+    end RAM_Type;
 
+    memory Large_Memory
+        features
+            ahb_access: requires bus access System_Bus;
+    end Large_Memory;
+    
+    memory implementation Large_Memory.impl
+        subcomponents
+            Prog_Flash : memory Flash_Type;
+            Data_RAM   : memory RAM_Type;
+    end Large_Memory.impl;
 
-  	thread Battery_Monitor
-  		features
-    		battery_in  : in  data port Battery_Level;
-    		battery_out : out data port Battery_Level;
-  		flows
-    		f_bat_in  : flow sink  battery_in;
-    		f_bat_out : flow source battery_out;
-  	end Battery_Monitor;
+    memory Small_Memory
+        features
+            local_access : requires bus access Local_Bus;
+    end Small_Memory;
 
+    -------------------------------------------------------------------------
+    -- SUBSYSTEM 1: MOTOR DRIVER (Slave)
+    -------------------------------------------------------------------------
 
-  	thread Motor_Control
-  		features
-    		throttle_in : in  data port Throttle_Input;
-    		battery_in  : in  data port Battery_Level;
-    		speed_in    : in  data port Speed_Signal;
-    		motor_out   : out data port Motor_Command;
-  		flows
-    		f_ctrl_th_in : flow sink  throttle_in;
-    		f_ctrl_bat_in: flow sink  battery_in;
-    		f_ctrl_spd_in: flow sink  speed_in;
-    		f_ctrl_m_out : flow source motor_out;
-  	end Motor_Control;
+    processor Motor_CPU
+        features
+            can_interface   : requires bus access CAN_Bus;
+            power_interface : requires bus access Power_Bus;
+            mem_interface   : requires bus access Local_Bus;
+        properties
+            SEI::MIPSCapacity => 80.0 mips;
+            SEI::GrossWeight => 0.05 kg;
+    end Motor_CPU;
 
+    device BLDC_Motor
+        features
+            pwm_signal : in data port Base_Types::Integer;
+            power_supply : requires bus access Power_Bus;
+        flows
+            motor_sink : flow sink pwm_signal;
+        properties
+            Latency => 10 ms .. 30 ms;
+    end BLDC_Motor;
 
----------------------------------------------------------------------
--- THREAD IMPLEMENTATIONS
----------------------------------------------------------------------
+    device Power_Controller
+        features
+            power_input : in data port Motor_Command.impl;
+            power_supply : requires bus access Power_Bus;
+    end Power_Controller;
 
-  	thread implementation Throttle_Reader.impl
-  	end Throttle_Reader.impl;
+    device Hall_Sensor
+        features
+            rpm_out : out data port Base_Types::Integer;
+            power_supply : requires bus access Power_Bus;
+    end Hall_Sensor;
 
-  	thread implementation Battery_Monitor.impl
-  	end Battery_Monitor.impl;
+    device Current_Sensor
+        features
+            current_out : out data port Base_Types::Float;
+            power_supply : requires bus access Power_Bus;
+    end Current_Sensor;
 
-  	thread implementation Motor_Control.impl
-  	end Motor_Control.impl;
+    thread Motor_Control_Thread
+        features
+            command_in : in data port Motor_Command.impl;
+            rpm_in     : in data port Base_Types::Integer;
+            current_in : in data port Base_Types::Float;
+            pwm_out    : out data port Base_Types::Integer;
+        flows
+            pwm_path : flow path command_in -> pwm_out;
+        properties
+            Dispatch_Protocol => Periodic;
+            Period => 50 ms;
+            Compute_Execution_Time => 3 ms .. 8 ms;
+    end Motor_Control_Thread;
 
+    process Motor_Process
+        features
+            command_in : in data port Motor_Command.impl;
+            rpm_in     : in data port Base_Types::Integer;
+            current_in : in data port Base_Types::Float;
+            pwm_out    : out data port Base_Types::Integer;
+        flows
+            proc_path : flow path command_in -> pwm_out;
+        properties
+            SEI::MIPSBudget => 30.0 mips;
+    end Motor_Process;
 
----------------------------------------------------------------------
--- PROCESS SPECIFICATION (interfejs procesu)
----------------------------------------------------------------------
+    process implementation Motor_Process.impl
+        subcomponents
+            motor_thread : thread Motor_Control_Thread;
+        connections
+            c1: port command_in -> motor_thread.command_in;
+            c2: port rpm_in -> motor_thread.rpm_in;
+            c3: port current_in -> motor_thread.current_in;
+            c4: port motor_thread.pwm_out -> pwm_out;
+        flows
+            proc_path : flow path command_in -> c1 -> motor_thread.pwm_path -> c4 -> pwm_out;
+    end Motor_Process.impl;
 
-  	process E_Bike_Process
-  		features
-    		throttle     : in  data port Throttle_Input;
-    		battery      : in  data port Battery_Level;
-    		speed_sensor : in  data port Speed_Signal;
-    		motor_out    : out data port Motor_Command;
-    	flows
-    		flow_throttle : flow path throttle -> motor_out;
-    		flow_battery  : flow path battery  -> motor_out;
-    		flow_speed    : flow path speed_sensor -> motor_out;
-  	end E_Bike_Process;
+    system Motor_Subsystem
+        features
+            command_input : in data port Motor_Command.impl;
+            can_port      : requires bus access CAN_Bus;
+            power_port    : requires bus access Power_Bus;
+        flows
+            sink_flow : flow sink command_input;
+    end Motor_Subsystem;
 
+    system implementation Motor_Subsystem.impl
+        subcomponents
+            cpu : processor Motor_CPU {
+                SEI::PowerBudget => 1.0 w applies to power_interface;
+            };
+            
+            ram       : memory Small_Memory;
+            local_bus : bus Local_Bus;
+            
+            motor_app : process Motor_Process.impl;
+            
+            controller : device Power_Controller {
+                SEI::PowerBudget => 5.0 w applies to power_supply;
+            };
+            
+            motor : device BLDC_Motor {
+                SEI::PowerBudget => 250.0 w applies to power_supply;
+            };
+            
+            hall_sensor : device Hall_Sensor {
+                SEI::PowerBudget => 0.1 w applies to power_supply;
+            };
+            
+            current_sensor : device Current_Sensor {
+                SEI::PowerBudget => 0.2 w applies to power_supply;
+            };
+            
+        connections
+            c1: port command_input -> motor_app.command_in;
+            c2: port command_input -> controller.power_input;
+            c3: port motor_app.pwm_out -> motor.pwm_signal;
+            c4: port hall_sensor.rpm_out -> motor_app.rpm_in;
+            c5: port current_sensor.current_out -> motor_app.current_in;
+            
+            bus_cpu_can : bus access can_port <-> cpu.can_interface;
+            bus_cpu_mem : bus access local_bus <-> cpu.mem_interface;
+            bus_mem     : bus access local_bus <-> ram.local_access;
+            
+            pwr_cpu  : bus access power_port <-> cpu.power_interface;
+            pwr_ctrl : bus access power_port <-> controller.power_supply;
+            pwr_mtr  : bus access power_port <-> motor.power_supply;
+            pwr_hall : bus access power_port <-> hall_sensor.power_supply;
+            pwr_curr : bus access power_port <-> current_sensor.power_supply;
+            
+        flows
+            sink_flow : flow sink command_input -> c1 -> motor_app.proc_path -> c3 -> motor.motor_sink;
+            
+        properties
+            Actual_Processor_Binding => (reference (cpu)) applies to motor_app;
+            Actual_Memory_Binding => (reference (ram)) applies to motor_app;
+    end Motor_Subsystem.impl;
 
----------------------------------------------------------------------
--- PROCESS IMPLEMENTATION (poprawione flow path)
----------------------------------------------------------------------
+    -------------------------------------------------------------------------
+    -- SUBSYSTEM 2: MAIN CONTROLLER (Master)
+    -------------------------------------------------------------------------
 
-  	process implementation E_Bike_Process.impl
-  		subcomponents
-    		throttle_thread : thread Throttle_Reader.impl;
-    		control_thread  : thread Motor_Control.impl;
-    		battery_thread  : thread Battery_Monitor.impl;
+    processor Main_CPU
+        features
+            sys_interface   : requires bus access System_Bus;
+            spi_interface   : requires bus access SPI_Bus;
+            can_interface   : requires bus access CAN_Bus;
+            power_interface : requires bus access Power_Bus;
+        properties
+            SEI::MIPSCapacity => 200.0 mips;
+            Clock_Period => 10000 ps;
+    end Main_CPU;
 
-  		connections
-    		-- połączenia portów procesu do threadów
-    		c1 : port throttle -> throttle_thread.throttle_in;
-    		c2 : port battery -> battery_thread.battery_in;
-    		c3 : port speed_sensor -> control_thread.speed_in;
+    device Speed_Sensor
+        features
+            speed_out : out data port Base_Types::Float;
+            spi_interface : requires bus access SPI_Bus;
+            power_supply : requires bus access Power_Bus;
+        flows
+            speed_source : flow source speed_out;
+        properties
+            SEI::GrossWeight => 0.05 kg;
+            Latency => 10 ms .. 20 ms;
+    end Speed_Sensor;
 
-    		-- połączenia pomiędzy threadami wewnątrz procesu
-    		c4 : port throttle_thread.throttle_out -> control_thread.throttle_in;
-    		c5 : port battery_thread.battery_out -> control_thread.battery_in;
+    device Cadence_Sensor
+        features
+            cadence_out : out data port Base_Types::Integer;
+            spi_interface : requires bus access SPI_Bus;
+            power_supply : requires bus access Power_Bus;
+    end Cadence_Sensor;
 
-    		-- wyjście procesu do zewnętrznego portu motor_out
-    		c6 : port control_thread.motor_out -> motor_out;
+    device Torque_Sensor
+        features
+            torque_out : out data port Base_Types::Float;
+            spi_interface : requires bus access SPI_Bus;
+            power_supply : requires bus access Power_Bus;
+    end Torque_Sensor;
 
---		flows
---    		-- 	przepływ manetki (od procesu.feature throttle do motor_out) — korzystamy z portów (features)
---    		flow_throttle : flow path
---      		throttle -> c1 ->
---      		throttle_thread.f_th_in -> c4 ->
---      		control_thread.f_ctrl_m_out -> c6 ->
---      		motor_out;
---
---    		-- przepływ baterii (porty)
---    		flow_battery : flow path
---      		battery -> c2 ->
---      		battery_thread.battery_out -> c5 ->
---      		control_thread.motor_out -> c6 ->
---      		motor_out;
+    device LCD_Display
+        features
+            data_in : in data port Ride_Data.impl;
+            spi_interface : requires bus access SPI_Bus;
+            power_supply : requires bus access Power_Bus;
+    end LCD_Display;
 
---    		-- przepływ prędkości (sensor -> control -> motor)
---    		flow_speed : flow path
---      		speed_sensor -> c3 ->
---      		control_thread.motor_out -> c6 ->
---      		motor_out;
+    device Control_Buttons
+        features
+            click_event : out event data port Base_Types::Integer;
+            power_supply : requires bus access Power_Bus;
+    end Control_Buttons;
 
-  	end E_Bike_Process.impl;
+    device LED_Light
+        features
+            enable : in data port Base_Types::Boolean;
+            power_supply : requires bus access Power_Bus;
+    end LED_Light;
 
+    device GPS_Module
+        features
+            location : out data port Base_Types::Integer;
+            spi_interface : requires bus access SPI_Bus;
+            power_supply : requires bus access Power_Bus;
+    end GPS_Module;
 
----------------------------------------------------------------------
--- PROCESSOR, MEMORY, BUS (z kwalifikowanymi property)
----------------------------------------------------------------------
+    device Battery_BMS
+        features
+            battery_level : out data port Base_Types::Float;
+            voltage : out data port Base_Types::Float;
+            can_interface : requires bus access CAN_Bus;
+            power_supply : requires bus access Power_Bus;
+        flows
+            battery_source : flow source battery_level;
+    end Battery_BMS;
 
-  	processor ECU
-  	end ECU;
+    device Bluetooth_Module
+        features
+            bt_data : out data port Base_Types::Integer;
+            spi_interface : requires bus access SPI_Bus;
+            power_supply : requires bus access Power_Bus;
+    end Bluetooth_Module;
 
-  	processor implementation ECU.impl
-    	--properties
-      		--Scheduling_Properties::Scheduling_Protocol => Rate_Monotonic;
-      		--Scheduling_Properties::Clock_Period => 1 ms;
-  	end ECU.impl;
+    device Alarm_Buzzer
+        features
+            alarm : in event data port Base_Types::Boolean;
+            power_supply : requires bus access Power_Bus;
+    end Alarm_Buzzer;
 
+    device Front_Brake
+        features
+            pressed : out data port Base_Types::Boolean;
+            power_supply : requires bus access Power_Bus;
+    end Front_Brake;
 
-  	memory ECU_RAM
-  	end ECU_RAM;
+    device Rear_Brake
+        features
+            pressed : out data port Base_Types::Boolean;
+            power_supply : requires bus access Power_Bus;
+    end Rear_Brake;
 
+    thread Main_Control_Thread
+        features
+            speed_in       : in data port Base_Types::Float;
+            cadence_in     : in data port Base_Types::Integer;
+            torque_in      : in data port Base_Types::Float;
+            battery_in     : in data port Base_Types::Float;
+            voltage_in     : in data port Base_Types::Float;
+            gps_in         : in data port Base_Types::Integer;
+            bt_in          : in data port Base_Types::Integer;
+            button_in      : in event data port Base_Types::Integer;
+            front_brake_in : in data port Base_Types::Boolean;
+            rear_brake_in  : in data port Base_Types::Boolean;
+            
+            motor_command_out : out data port Motor_Command.impl;
+            lcd_out           : out data port Ride_Data.impl;
+            led_out           : out data port Base_Types::Boolean;
+            alarm_out         : out event data port Base_Types::Boolean;
+        
+        flows
+            motor_path : flow path speed_in -> motor_command_out;
+            lcd_path   : flow path speed_in -> lcd_out;
 
-  	bus CommBus
-  	end CommBus;
+        properties
+            Dispatch_Protocol => Periodic;
+            Period => 100 ms;
+            Compute_Execution_Time => 8 ms .. 20 ms;
+    end Main_Control_Thread;
 
-  	bus implementation CommBus.impl
-    	--properties
-      		--Deployment_Properties::Transmission_Type => Timed;
-  	end CommBus.impl;
+    process Controller_Process
+        features
+            speed_in       : in data port Base_Types::Float;
+            cadence_in     : in data port Base_Types::Integer;
+            torque_in      : in data port Base_Types::Float;
+            battery_in     : in data port Base_Types::Float;
+            voltage_in     : in data port Base_Types::Float;
+            gps_in         : in data port Base_Types::Integer;
+            bt_in          : in data port Base_Types::Integer;
+            button_in      : in event data port Base_Types::Integer;
+            front_brake_in : in data port Base_Types::Boolean;
+            rear_brake_in  : in data port Base_Types::Boolean;
+            
+            motor_command_out : out data port Motor_Command.impl;
+            lcd_out           : out data port Ride_Data.impl;
+            led_out           : out data port Base_Types::Boolean;
+            alarm_out         : out event data port Base_Types::Boolean;
+            
+        flows
+            motor_flow : flow path speed_in -> motor_command_out;
+            lcd_flow   : flow path speed_in -> lcd_out;
+        properties
+            SEI::MIPSBudget => 100.0 mips;
+    end Controller_Process;
 
+    process implementation Controller_Process.impl
+        subcomponents
+            control_thread : thread Main_Control_Thread;
+        connections
+            c1: port speed_in -> control_thread.speed_in;
+            c2: port cadence_in -> control_thread.cadence_in;
+            c3: port torque_in -> control_thread.torque_in;
+            c4: port battery_in -> control_thread.battery_in;
+            c5: port voltage_in -> control_thread.voltage_in;
+            c6: port gps_in -> control_thread.gps_in;
+            c7: port bt_in -> control_thread.bt_in;
+            c8: port button_in -> control_thread.button_in;
+            c9: port front_brake_in -> control_thread.front_brake_in;
+            c10: port rear_brake_in -> control_thread.rear_brake_in;
+            
+            c_mtr: port control_thread.motor_command_out -> motor_command_out;
+            c_lcd: port control_thread.lcd_out -> lcd_out;
+            c_led: port control_thread.led_out -> led_out;
+            c_alm: port control_thread.alarm_out -> alarm_out;
+            
+        flows
+            motor_flow : flow path speed_in -> c1 -> control_thread.motor_path -> c_mtr -> motor_command_out;
+            lcd_flow   : flow path speed_in -> c1 -> control_thread.lcd_path -> c_lcd -> lcd_out;
+    end Controller_Process.impl;
 
----------------------------------------------------------------------
--- SYSTEM SPECIFICATION
----------------------------------------------------------------------
+    system Controller_Subsystem
+        features
+            command_output : out data port Motor_Command.impl;
+            can_port       : requires bus access CAN_Bus;
+            power_port     : requires bus access Power_Bus;
+        flows
+            source_flow : flow source command_output;
+    end Controller_Subsystem;
 
-  	system E_Bike_System
-  		features
-    		motor_status : out data port Motor_Command;
-  	end E_Bike_System;
+    system implementation Controller_Subsystem.impl
+        subcomponents
+            cpu : processor Main_CPU {
+                SEI::PowerBudget => 3.0 w applies to power_interface;
+            };
+            
+            ram        : memory Large_Memory.impl;
+            system_bus : bus System_Bus;
+            spi_bus    : bus SPI_Bus;
+            
+            controller : process Controller_Process.impl;
+            
+            speed_sensor : device Speed_Sensor {
+                SEI::PowerBudget => 0.15 w applies to power_supply;
+            };
+            
+            cadence_sensor : device Cadence_Sensor {
+                SEI::PowerBudget => 0.1 w applies to power_supply;
+            };
+            
+            torque_sensor : device Torque_Sensor {
+                SEI::PowerBudget => 0.2 w applies to power_supply;
+            };
+            
+            bms : device Battery_BMS {
+                SEI::PowerBudget => 0.5 w applies to power_supply;
+            };
+            
+            lcd : device LCD_Display {
+                SEI::PowerBudget => 0.8 w applies to power_supply;
+            };
+            
+            buttons : device Control_Buttons {
+                SEI::PowerBudget => 0.05 w applies to power_supply;
+            };
+            
+            led : device LED_Light {
+                SEI::PowerBudget => 3.0 w applies to power_supply;
+            };
+            
+            gps : device GPS_Module {
+                SEI::PowerBudget => 0.5 w applies to power_supply;
+            };
+            
+            bluetooth : device Bluetooth_Module {
+                SEI::PowerBudget => 0.3 w applies to power_supply;
+            };
+            
+            alarm : device Alarm_Buzzer {
+                SEI::PowerBudget => 0.2 w applies to power_supply;
+            };
+            
+            front_brake : device Front_Brake {
+                SEI::PowerBudget => 0.05 w applies to power_supply;
+            };
+            
+            rear_brake : device Rear_Brake {
+                SEI::PowerBudget => 0.05 w applies to power_supply;
+            };
 
+        connections
+            d_spd : port speed_sensor.speed_out -> controller.speed_in;
+            d_cad : port cadence_sensor.cadence_out -> controller.cadence_in;
+            d_trq : port torque_sensor.torque_out -> controller.torque_in;
+            d_bat : port bms.battery_level -> controller.battery_in;
+            d_vol : port bms.voltage -> controller.voltage_in;
+            d_gps : port gps.location -> controller.gps_in;
+            d_bt  : port bluetooth.bt_data -> controller.bt_in;
+            d_btn : port buttons.click_event -> controller.button_in;
+            d_fbr : port front_brake.pressed -> controller.front_brake_in;
+            d_rbr : port rear_brake.pressed -> controller.rear_brake_in;
+            
+            d_mtr : port controller.motor_command_out -> command_output;
+            d_lcd : port controller.lcd_out -> lcd.data_in;
+            d_led : port controller.led_out -> led.enable;
+            d_alm : port controller.alarm_out -> alarm.alarm;
 
----------------------------------------------------------------------
--- SYSTEM IMPLEMENTATION (end-to-end flows)
----------------------------------------------------------------------
+            bus_cpu_sys : bus access system_bus <-> cpu.sys_interface;
+            bus_mem_sys : bus access system_bus <-> ram.ahb_access;
+            
+            bus_cpu_spi : bus access spi_bus <-> cpu.spi_interface;
+            bus_spd_spi : bus access spi_bus <-> speed_sensor.spi_interface;
+            bus_cad_spi : bus access spi_bus <-> cadence_sensor.spi_interface;
+            bus_trq_spi : bus access spi_bus <-> torque_sensor.spi_interface;
+            bus_lcd_spi : bus access spi_bus <-> lcd.spi_interface;
+            bus_gps_spi : bus access spi_bus <-> gps.spi_interface;
+            bus_bt_spi  : bus access spi_bus <-> bluetooth.spi_interface;
+            
+            bus_cpu_can : bus access can_port <-> cpu.can_interface;
+            bus_bms_can : bus access can_port <-> bms.can_interface;
 
-  	system implementation E_Bike_System.impl
-  		subcomponents
-    		throttle_dev : device Throttle_Device;
-    		battery_dev  : device Battery_Device;
-    		speed_dev    : device Speed_Sensor;
-    		motor_dev    : device Motor_Driver;
+            pwr_cpu : bus access power_port <-> cpu.power_interface;
+            pwr_spd : bus access power_port <-> speed_sensor.power_supply;
+            pwr_cad : bus access power_port <-> cadence_sensor.power_supply;
+            pwr_trq : bus access power_port <-> torque_sensor.power_supply;
+            pwr_bms : bus access power_port <-> bms.power_supply;
+            pwr_lcd : bus access power_port <-> lcd.power_supply;
+            pwr_btn : bus access power_port <-> buttons.power_supply;
+            pwr_led : bus access power_port <-> led.power_supply;
+            pwr_gps : bus access power_port <-> gps.power_supply;
+            pwr_bt  : bus access power_port <-> bluetooth.power_supply;
+            pwr_alm : bus access power_port <-> alarm.power_supply;
+            pwr_fbr : bus access power_port <-> front_brake.power_supply;
+            pwr_rbr : bus access power_port <-> rear_brake.power_supply;
 
-    		controller : process E_Bike_Process.impl;
+        flows
+            e2e_control : end to end flow 
+                speed_sensor.speed_source -> d_spd -> controller.motor_flow;
+                
+            source_flow : flow source speed_sensor.speed_source -> d_spd -> controller.motor_flow -> d_mtr -> command_output;
 
-    		cpu     : processor ECU.impl;
-    		ram     : memory ECU_RAM;
-    		busline : bus CommBus.impl;
+        properties
+            Actual_Processor_Binding => (reference (cpu)) applies to controller;
+            Actual_Memory_Binding => (reference (ram)) applies to controller;
+            Actual_Connection_Binding => (reference (spi_bus)) applies to d_spd;
 
-  		connections
-    		d1 : port throttle_dev.throttle_out -> controller.throttle;
-    		d2 : port battery_dev.battery_out -> controller.battery;
-    		d3 : port speed_dev.speed_out -> controller.speed_sensor;
-    		d4 : port controller.motor_out -> motor_dev.motor_in;
+    end Controller_Subsystem.impl;
 
-  		properties
-    		Actual_Processor_Binding => (reference (cpu)) applies to controller;
-    		Actual_Memory_Binding    => (reference (ram)) applies to controller;
-    		Actual_Connection_Binding => (reference (busline)) applies to d1, d2, d3, d4;
+    -------------------------------------------------------------------------
+    -- MAIN SYSTEM
+    -------------------------------------------------------------------------
 
---  		flows
---    		e2e_throttle : end to end flow
---      		throttle_dev.on_flow_src -> d1 -> controller.flow_throttle -> d4 -> motor_dev.on_flow_sink { latency => 5 ms .. 10 ms; };
---
---    		e2e_battery : end to end flow
---      		battery_dev.on_flow_src -> d2 -> controller.flow_battery -> d4 -> motor_dev.on_flow_sink { latency => 5 ms .. 10 ms; };
---
---    		e2e_speed : end to end flow
---      		speed_dev.on_flow_src -> d3 -> controller.flow_speed -> d4 -> motor_dev.on_flow_sink { latency => 5 ms .. 10 ms; };
+    device Main_Battery
+        features
+            dc_output : requires bus access Power_Bus;
+        properties
+            SEI::GrossWeight => 3.0 kg;
+    end Main_Battery;
 
-  	end E_Bike_System.impl;
+    system E_Bike_System
+        properties
+            SEI::WeightLimit => 12.0 kg;
+    end E_Bike_System;
 
+    system implementation E_Bike_System.impl
+        subcomponents
+            controller_module : system Controller_Subsystem.impl;
+            motor_module      : system Motor_Subsystem.impl;
+            
+            can_cable    : bus CAN_Bus;
+            power_cable  : bus Power_Bus;
+            battery      : device Main_Battery;
+
+        connections
+            command_link : port controller_module.command_output -> motor_module.command_input;
+
+            bus_ctrl_can : bus access can_cable <-> controller_module.can_port;
+            bus_mtr_can  : bus access can_cable <-> motor_module.can_port;
+
+            bus_pwr_bat  : bus access power_cable <-> battery.dc_output;
+            bus_pwr_ctrl : bus access power_cable <-> controller_module.power_port;
+            bus_pwr_mtr  : bus access power_cable <-> motor_module.power_port;
+
+        flows
+            global_flow : end to end flow
+                controller_module.source_flow -> command_link -> motor_module.sink_flow;
+
+        properties
+            Actual_Connection_Binding => (reference (can_cable)) applies to command_link;
+
+    end E_Bike_System.impl;
 
 end E_Bike_Controller;

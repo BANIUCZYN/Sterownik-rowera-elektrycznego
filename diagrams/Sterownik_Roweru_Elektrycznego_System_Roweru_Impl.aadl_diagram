@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="ASCII"?>
+<diagram:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diagram="http://osate.org/diagram" formatVersion="7">
+  <element uuid="ce975dd3-a49d-4a16-bbdc-4aa29fe379a1" manual="true">
+    <element uuid="c14e7065-e9dd-4eef-81e6-1ea90d0e77ba" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>fiz_siln_can</seg>
+      </bo>
+      <bendpoints>
+        <point x="167.02084350585938" y="108.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="e1d23cda-d770-4afb-8877-c8ea75d5040d" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>fiz_ster_can</seg>
+      </bo>
+      <bendpoints>
+        <point x="171.02084350585938" y="119.66665649414062"/>
+        <point x="187.02084350585938" y="119.66665649414062"/>
+        <point x="187.02084350585938" y="228.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="3922fe80-aa12-437e-af0a-2b7364df0f1b" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>fiz_zas_bat</seg>
+      </bo>
+      <bendpoints>
+        <point x="171.02084350585938" y="298.0"/>
+        <point x="177.02084350585938" y="298.0"/>
+        <point x="177.02084350585938" y="370.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="d3b26efa-129d-4a77-bdb2-da07c0c72535" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>fiz_zas_siln</seg>
+      </bo>
+      <bendpoints>
+        <point x="171.02084350585938" y="278.0"/>
+        <point x="177.02084350585938" y="278.0"/>
+        <point x="177.02084350585938" y="147.0"/>
+        <point x="779.0221557617188" y="147.0"/>
+        <point x="779.0221557617188" y="168.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="d7de4bfe-d1f0-43cb-a3b0-6845256b3764" manual="true">
+      <bo>
+        <seg>connection</seg>
+        <seg>fiz_zas_ster</seg>
+      </bo>
+      <bendpoints>
+        <point x="167.02084350585938" y="288.0"/>
+      </bendpoints>
+    </element>
+    <element uuid="a44b1f10-5760-4276-8aac-7f48c37555f6" manual="true">
+      <element uuid="7e82783b-3652-4512-b754-56e4eb18eabe" manual="true">
+        <bo>
+          <seg>tag</seg>
+          <seg>unidirectional</seg>
+        </bo>
+      </element>
+      <bo>
+        <seg>connection</seg>
+        <seg>polaczenie_komend</seg>
+      </bo>
+    </element>
+    <element uuid="ca6ae1ce-01fc-4543-a994-ade34449652b" manual="true">
+      <element uuid="a54982a3-f438-4f91-a1a6-acf58e263aaf" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>wyjscie_dc</seg>
+        </bo>
+        <position y="10.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Bateria</seg>
+      </bo>
+      <position x="197.02084350585938" y="328.0"/>
+      <size width="252.3671760559082" height="60.0"/>
+    </element>
+    <element uuid="2d2cf8a2-75a0-4284-a233-e26c07313e61" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Kabel_CAN</seg>
+      </bo>
+      <position x="40.16407775878906" y="96.33333333333334"/>
+      <size width="126.85676574707031" height="35.0"/>
+    </element>
+    <element uuid="ec0c3197-b6c8-4516-81da-42128823ee62" manual="true">
+      <element uuid="2fc21e19-3a12-4038-ab0f-bad6da8dae2f" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>port_can</seg>
+        </bo>
+        <position y="38.0"/>
+      </element>
+      <element uuid="cc7ce494-31c5-4135-a2d4-57e5b3c7a2a9" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>port_zasilania</seg>
+        </bo>
+        <position y="98.0"/>
+      </element>
+      <element uuid="19dcc9f5-3703-4102-bcbb-61fb2c986717" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>wejscie_komendy</seg>
+        </bo>
+        <position y="158.0"/>
+      </element>
+      <element uuid="923ea0a4-54ac-491c-8bb3-37623cf18129" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>przeplyw_sink</seg>
+        </bo>
+        <position x="353.7031478881836" y="190.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Modul_Silnika</seg>
+      </bo>
+      <position x="789.0221557617188" y="38.0"/>
+      <size width="482.9375305175781" height="210.0"/>
+    </element>
+    <element uuid="b8148c43-9b5b-4297-9b58-a1270d90f94b" manual="true">
+      <element uuid="da8226cb-3970-47c5-b605-d79f476a97b9" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>port_can</seg>
+        </bo>
+        <position y="38.0"/>
+      </element>
+      <element uuid="537a07b7-d243-4a8a-97d5-3d2796a7e2ce" manual="true" dockArea="left">
+        <bo>
+          <seg>feature</seg>
+          <seg>port_zasilania</seg>
+        </bo>
+        <position y="98.0"/>
+      </element>
+      <element uuid="43f43f7f-d7f3-4bd8-b9cf-4bc76c051b2f" manual="true" dockArea="right">
+        <bo>
+          <seg>feature</seg>
+          <seg>wyjscie_komendy</seg>
+        </bo>
+        <position x="455.51564025878906" y="38.0"/>
+      </element>
+      <element uuid="86e53e6f-4ef5-4d66-a2ae-737b652a6bc4" manual="true">
+        <bo>
+          <seg>flow_specification</seg>
+          <seg>zrodlo_sys</seg>
+        </bo>
+        <position x="327.0299606323242" y="70.0"/>
+      </element>
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Modul_Sterowania</seg>
+      </bo>
+      <position x="197.02084350585938" y="158.0"/>
+      <size width="572.0013198852539" height="150.0"/>
+    </element>
+    <element uuid="1fe91f3c-d145-4580-bc01-afb4a0f0a9cd" manual="true">
+      <bo>
+        <seg>subcomponent</seg>
+        <seg>Szyna_Zasilania</seg>
+      </bo>
+      <position x="12.0" y="268.0"/>
+      <size width="155.02084350585938" height="40.0"/>
+    </element>
+    <bo>
+      <seg>classifier</seg>
+      <seg>System_Roweru.Impl</seg>
+    </bo>
+    <position/>
+    <size width="1283.959716796875" height="400.0"/>
+  </element>
+  <config type="structure" connectionPrimaryLabelsVisible="false">
+    <enabledAadlProperties/>
+    <context>
+      <seg>classifier</seg>
+      <seg>Sterownik_Roweru_Elektrycznego::System_Roweru.Impl</seg>
+    </context>
+  </config>
+</diagram:Diagram>

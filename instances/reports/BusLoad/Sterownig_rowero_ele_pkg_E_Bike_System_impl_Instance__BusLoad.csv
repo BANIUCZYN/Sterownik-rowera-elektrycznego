@@ -2,28 +2,137 @@ Bus load analysis of E_Bike_System_impl_Instance
 
 
 "Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
-"busline","0.0","0.0","0.0","0.0"
+"can_cable","1000.0","0.0","0.0","0.0"
+"power_cable","0.0","0.0","0.0","0.0"
+"system_bus","100000.0","0.0","0.0","0.0"
+"spi_bus","10000.0","0.0","0.0","0.0"
+"local_bus","0.0","0.0","0.0","0.0"
 
-"Bus busline has data overhead of 0 bytes"
+"Bus can_cable has data overhead of 0 bytes"
 "Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
-"throttle_dev.throttle_out -> controller.throttle_thread.throttle_in","","0.0","","0.0"
-"battery_dev.battery_out -> controller.battery_thread.battery_in","","0.0","","0.0"
-"speed_dev.speed_out -> controller.control_thread.speed_in","","0.0","","0.0"
-"controller.control_thread.motor_out -> motor_dev.motor_in","","0.0","","0.0"
+"bms.battery_level -> controller.control_thread.battery_in","","0.0","","0.0"
+"bms.voltage -> controller.control_thread.voltage_in","","0.0","","0.0"
+"controller_module.controller.control_thread.motor_command_out -> motor_module.motor_app.motor_thread.command_in","","0.0","","0.0"
+"controller_module.controller.control_thread.motor_command_out -> motor_module.controller.power_input","","0.0","","0.0"
 
-"WARNING: Bus busline has no capacity"
-"WARNING: Bus busline has no bandwidth budget"
+"WARNING: Bus can_cable has no bandwidth budget"
 
-"Connection throttle_dev.throttle_out -> controller.throttle_thread.throttle_in bound to busline"
-"WARNING: Connection throttle_dev.throttle_out -> controller.throttle_thread.throttle_in has no bandwidth budget"
+"Connection bms.battery_level -> controller.control_thread.battery_in bound to can_cable"
+"WARNING: Connection bms.battery_level -> controller.control_thread.battery_in has no bandwidth budget"
 
-"Connection battery_dev.battery_out -> controller.battery_thread.battery_in bound to busline"
-"WARNING: Connection battery_dev.battery_out -> controller.battery_thread.battery_in has no bandwidth budget"
+"Connection bms.voltage -> controller.control_thread.voltage_in bound to can_cable"
+"WARNING: Connection bms.voltage -> controller.control_thread.voltage_in has no bandwidth budget"
 
-"Connection speed_dev.speed_out -> controller.control_thread.speed_in bound to busline"
-"WARNING: Connection speed_dev.speed_out -> controller.control_thread.speed_in has no bandwidth budget"
+"Connection controller_module.controller.control_thread.motor_command_out -> motor_module.motor_app.motor_thread.command_in bound to can_cable"
+"WARNING: Connection controller_module.controller.control_thread.motor_command_out -> motor_module.motor_app.motor_thread.command_in has no bandwidth budget"
 
-"Connection controller.control_thread.motor_out -> motor_dev.motor_in bound to busline"
-"WARNING: Connection controller.control_thread.motor_out -> motor_dev.motor_in has no bandwidth budget"
+"Connection controller_module.controller.control_thread.motor_command_out -> motor_module.controller.power_input bound to can_cable"
+"WARNING: Connection controller_module.controller.control_thread.motor_command_out -> motor_module.controller.power_input has no bandwidth budget"
+
+"Bus power_cable has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"cadence_sensor.cadence_out -> controller.control_thread.cadence_in","","0.0","","0.0"
+"torque_sensor.torque_out -> controller.control_thread.torque_in","","0.0","","0.0"
+"bms.battery_level -> controller.control_thread.battery_in","","0.0","","0.0"
+"bms.voltage -> controller.control_thread.voltage_in","","0.0","","0.0"
+"buttons.click_event -> controller.control_thread.button_in","","0.0","","0.0"
+"gps.location -> controller.control_thread.gps_in","","0.0","","0.0"
+"bluetooth.bt_data -> controller.control_thread.bt_in","","0.0","","0.0"
+"front_brake.pressed -> controller.control_thread.front_brake_in","","0.0","","0.0"
+"rear_brake.pressed -> controller.control_thread.rear_brake_in","","0.0","","0.0"
+"controller.control_thread.lcd_out -> lcd.data_in","","0.0","","0.0"
+"controller.control_thread.led_out -> led.enable","","0.0","","0.0"
+"controller.control_thread.alarm_out -> alarm.alarm","","0.0","","0.0"
+"hall_sensor.rpm_out -> motor_app.motor_thread.rpm_in","","0.0","","0.0"
+"current_sensor.current_out -> motor_app.motor_thread.current_in","","0.0","","0.0"
+"motor_app.motor_thread.pwm_out -> motor.pwm_signal","","0.0","","0.0"
+
+"WARNING: Bus power_cable has no capacity"
+"WARNING: Bus power_cable has no bandwidth budget"
+
+"Connection cadence_sensor.cadence_out -> controller.control_thread.cadence_in bound to power_cable"
+"WARNING: Connection cadence_sensor.cadence_out -> controller.control_thread.cadence_in has no bandwidth budget"
+
+"Connection torque_sensor.torque_out -> controller.control_thread.torque_in bound to power_cable"
+"WARNING: Connection torque_sensor.torque_out -> controller.control_thread.torque_in has no bandwidth budget"
+
+"Connection bms.battery_level -> controller.control_thread.battery_in bound to power_cable"
+"WARNING: Connection bms.battery_level -> controller.control_thread.battery_in has no bandwidth budget"
+
+"Connection bms.voltage -> controller.control_thread.voltage_in bound to power_cable"
+"WARNING: Connection bms.voltage -> controller.control_thread.voltage_in has no bandwidth budget"
+
+"Connection buttons.click_event -> controller.control_thread.button_in bound to power_cable"
+"WARNING: Connection buttons.click_event -> controller.control_thread.button_in has no bandwidth budget"
+
+"Connection gps.location -> controller.control_thread.gps_in bound to power_cable"
+"WARNING: Connection gps.location -> controller.control_thread.gps_in has no bandwidth budget"
+
+"Connection bluetooth.bt_data -> controller.control_thread.bt_in bound to power_cable"
+"WARNING: Connection bluetooth.bt_data -> controller.control_thread.bt_in has no bandwidth budget"
+
+"Connection front_brake.pressed -> controller.control_thread.front_brake_in bound to power_cable"
+"WARNING: Connection front_brake.pressed -> controller.control_thread.front_brake_in has no bandwidth budget"
+
+"Connection rear_brake.pressed -> controller.control_thread.rear_brake_in bound to power_cable"
+"WARNING: Connection rear_brake.pressed -> controller.control_thread.rear_brake_in has no bandwidth budget"
+
+"Connection controller.control_thread.lcd_out -> lcd.data_in bound to power_cable"
+"WARNING: Connection controller.control_thread.lcd_out -> lcd.data_in has no bandwidth budget"
+
+"Connection controller.control_thread.led_out -> led.enable bound to power_cable"
+"WARNING: Connection controller.control_thread.led_out -> led.enable has no bandwidth budget"
+
+"Connection controller.control_thread.alarm_out -> alarm.alarm bound to power_cable"
+"WARNING: Connection controller.control_thread.alarm_out -> alarm.alarm has no bandwidth budget"
+
+"Connection hall_sensor.rpm_out -> motor_app.motor_thread.rpm_in bound to power_cable"
+"WARNING: Connection hall_sensor.rpm_out -> motor_app.motor_thread.rpm_in has no bandwidth budget"
+
+"Connection current_sensor.current_out -> motor_app.motor_thread.current_in bound to power_cable"
+"WARNING: Connection current_sensor.current_out -> motor_app.motor_thread.current_in has no bandwidth budget"
+
+"Connection motor_app.motor_thread.pwm_out -> motor.pwm_signal bound to power_cable"
+"WARNING: Connection motor_app.motor_thread.pwm_out -> motor.pwm_signal has no bandwidth budget"
+
+"Bus system_bus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus system_bus has no bandwidth budget"
+
+"Bus spi_bus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"speed_sensor.speed_out -> controller.control_thread.speed_in","","0.0","","0.0"
+"cadence_sensor.cadence_out -> controller.control_thread.cadence_in","","0.0","","0.0"
+"torque_sensor.torque_out -> controller.control_thread.torque_in","","0.0","","0.0"
+"gps.location -> controller.control_thread.gps_in","","0.0","","0.0"
+"bluetooth.bt_data -> controller.control_thread.bt_in","","0.0","","0.0"
+"controller.control_thread.lcd_out -> lcd.data_in","","0.0","","0.0"
+
+"WARNING: Bus spi_bus has no bandwidth budget"
+
+"Connection speed_sensor.speed_out -> controller.control_thread.speed_in bound to spi_bus"
+"WARNING: Connection speed_sensor.speed_out -> controller.control_thread.speed_in has no bandwidth budget"
+
+"Connection cadence_sensor.cadence_out -> controller.control_thread.cadence_in bound to spi_bus"
+"WARNING: Connection cadence_sensor.cadence_out -> controller.control_thread.cadence_in has no bandwidth budget"
+
+"Connection torque_sensor.torque_out -> controller.control_thread.torque_in bound to spi_bus"
+"WARNING: Connection torque_sensor.torque_out -> controller.control_thread.torque_in has no bandwidth budget"
+
+"Connection gps.location -> controller.control_thread.gps_in bound to spi_bus"
+"WARNING: Connection gps.location -> controller.control_thread.gps_in has no bandwidth budget"
+
+"Connection bluetooth.bt_data -> controller.control_thread.bt_in bound to spi_bus"
+"WARNING: Connection bluetooth.bt_data -> controller.control_thread.bt_in has no bandwidth budget"
+
+"Connection controller.control_thread.lcd_out -> lcd.data_in bound to spi_bus"
+"WARNING: Connection controller.control_thread.lcd_out -> lcd.data_in has no bandwidth budget"
+
+"Bus local_bus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus local_bus has no capacity"
+"WARNING: Bus local_bus has no bandwidth budget"
 
 
