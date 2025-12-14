@@ -282,7 +282,7 @@ E_Bike_System.impl
 
 ### Diagram przepływu danych
 
-![E-Bike System Diagram](./E_Bike_System.png)
+![E-Bike System Diagram](E_Bike_System.png)
 
 ---
 
