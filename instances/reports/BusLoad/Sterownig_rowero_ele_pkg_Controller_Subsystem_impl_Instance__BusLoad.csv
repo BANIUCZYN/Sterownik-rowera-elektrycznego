@@ -1,0 +1,42 @@
+Bus load analysis of Controller_Subsystem_impl_Instance
+
+
+"Physical Bus","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"system_bus","100000.0","0.0","0.0","0.0"
+"spi_bus","10000.0","0.0","0.0","0.0"
+
+"Bus system_bus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+
+"WARNING: Bus system_bus has no bandwidth budget"
+
+"Bus spi_bus has data overhead of 0 bytes"
+"Bound Virtual Bus/Connection","Capacity (KB/s)","Budget (KB/s)","Required Budget (KB/s)","Actual (KB/s)"
+"speed_sensor.speed_out -> controller.control_thread.speed_in","","0.0","","0.0"
+"cadence_sensor.cadence_out -> controller.control_thread.cadence_in","","0.0","","0.0"
+"torque_sensor.torque_out -> controller.control_thread.torque_in","","0.0","","0.0"
+"gps.location -> controller.control_thread.gps_in","","0.0","","0.0"
+"bluetooth.bt_data -> controller.control_thread.bt_in","","0.0","","0.0"
+"controller.control_thread.lcd_out -> lcd.data_in","","0.0","","0.0"
+
+"WARNING: Bus spi_bus has no bandwidth budget"
+
+"Connection speed_sensor.speed_out -> controller.control_thread.speed_in bound to spi_bus"
+"WARNING: Connection speed_sensor.speed_out -> controller.control_thread.speed_in has no bandwidth budget"
+
+"Connection cadence_sensor.cadence_out -> controller.control_thread.cadence_in bound to spi_bus"
+"WARNING: Connection cadence_sensor.cadence_out -> controller.control_thread.cadence_in has no bandwidth budget"
+
+"Connection torque_sensor.torque_out -> controller.control_thread.torque_in bound to spi_bus"
+"WARNING: Connection torque_sensor.torque_out -> controller.control_thread.torque_in has no bandwidth budget"
+
+"Connection gps.location -> controller.control_thread.gps_in bound to spi_bus"
+"WARNING: Connection gps.location -> controller.control_thread.gps_in has no bandwidth budget"
+
+"Connection bluetooth.bt_data -> controller.control_thread.bt_in bound to spi_bus"
+"WARNING: Connection bluetooth.bt_data -> controller.control_thread.bt_in has no bandwidth budget"
+
+"Connection controller.control_thread.lcd_out -> lcd.data_in bound to spi_bus"
+"WARNING: Connection controller.control_thread.lcd_out -> lcd.data_in has no bandwidth budget"
+
+

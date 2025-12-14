@@ -55,7 +55,7 @@ public
 
     bus Power_Bus
         properties
-            SEI::PowerCapacity => 500.0 w;
+            SEI::PowerCapacity => 2880.0 W; --16mm^2 -> 60A -> P = 60A * 48V = 2880W
     end Power_Bus;
 
     bus Local_Bus
@@ -66,11 +66,17 @@ public
     -------------------------------------------------------------------------
 
     memory Flash_Type
-        properties Memory_Size => 1 MByte;
+        features
+            ahb_access : requires bus access System_Bus;
+        properties 
+            Memory_Size => 1 MByte;
     end Flash_Type;
 
     memory RAM_Type
-        properties Memory_Size => 256 KByte;
+        features
+            ahb_access : requires bus access System_Bus;
+        properties 
+            Memory_Size => 256 KByte;
     end RAM_Type;
 
     memory Large_Memory
@@ -82,6 +88,9 @@ public
         subcomponents
             Prog_Flash : memory Flash_Type;
             Data_RAM   : memory RAM_Type;
+        connections
+            flash_conn : bus access ahb_access <-> Prog_Flash.ahb_access;
+            ram_conn : bus access ahb_access <-> Data_RAM.ahb_access;
     end Large_Memory.impl;
 
     memory Small_Memory
@@ -102,6 +111,11 @@ public
             SEI::MIPSCapacity => 80.0 mips;
             SEI::GrossWeight => 0.05 kg;
     end Motor_CPU;
+    
+    virtual processor Main_VP
+        properties
+            Scheduling_Protocol => (POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL);
+    end Main_VP;
 
     device BLDC_Motor
         features
@@ -181,7 +195,11 @@ public
     system implementation Motor_Subsystem.impl
         subcomponents
             cpu : processor Motor_CPU {
-                SEI::PowerBudget => 1.0 w applies to power_interface;
+                SEI::PowerBudget => 1.0 W applies to power_interface;
+            };
+            
+            vp : virtual processor Main_VP {
+                Deployment_Properties::Scheduling_Protocol => (POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL);
             };
             
             ram       : memory Small_Memory;
@@ -190,19 +208,19 @@ public
             motor_app : process Motor_Process.impl;
             
             controller : device Power_Controller {
-                SEI::PowerBudget => 5.0 w applies to power_supply;
+                SEI::PowerBudget => 5.0 W applies to power_supply;
             };
             
             motor : device BLDC_Motor {
-                SEI::PowerBudget => 250.0 w applies to power_supply;
+                SEI::PowerBudget => 1000.0 W applies to power_supply;
             };
             
             hall_sensor : device Hall_Sensor {
-                SEI::PowerBudget => 0.1 w applies to power_supply;
+                SEI::PowerBudget => 0.1 W applies to power_supply;
             };
             
             current_sensor : device Current_Sensor {
-                SEI::PowerBudget => 0.2 w applies to power_supply;
+                SEI::PowerBudget => 0.2 W applies to power_supply;
             };
             
         connections
@@ -226,7 +244,8 @@ public
             sink_flow : flow sink command_input -> c1 -> motor_app.proc_path -> c3 -> motor.motor_sink;
             
         properties
-            Actual_Processor_Binding => (reference (cpu)) applies to motor_app;
+            Actual_Processor_Binding => (reference (vp)) applies to motor_app;
+            Actual_Processor_Binding => (reference (cpu)) applies to vp;
             Actual_Memory_Binding => (reference (ram)) applies to motor_app;
     end Motor_Subsystem.impl;
 
@@ -422,7 +441,11 @@ public
     system implementation Controller_Subsystem.impl
         subcomponents
             cpu : processor Main_CPU {
-                SEI::PowerBudget => 3.0 w applies to power_interface;
+                SEI::PowerBudget => 3.0 W applies to power_interface;
+            };
+            
+            vp : virtual processor Main_VP {
+                Deployment_Properties::Scheduling_Protocol => (POSIX_1003_HIGHEST_PRIORITY_FIRST_PROTOCOL);
             };
             
             ram        : memory Large_Memory.impl;
@@ -432,51 +455,51 @@ public
             controller : process Controller_Process.impl;
             
             speed_sensor : device Speed_Sensor {
-                SEI::PowerBudget => 0.15 w applies to power_supply;
+                SEI::PowerBudget => 0.1 W applies to power_supply;
             };
             
             cadence_sensor : device Cadence_Sensor {
-                SEI::PowerBudget => 0.1 w applies to power_supply;
+                SEI::PowerBudget => 0.05 W applies to power_supply;
             };
             
             torque_sensor : device Torque_Sensor {
-                SEI::PowerBudget => 0.2 w applies to power_supply;
+                SEI::PowerBudget => 0.1 W applies to power_supply;
             };
             
             bms : device Battery_BMS {
-                SEI::PowerBudget => 0.5 w applies to power_supply;
+                SEI::PowerBudget => 0.5 W applies to power_supply;
             };
             
             lcd : device LCD_Display {
-                SEI::PowerBudget => 0.8 w applies to power_supply;
+                SEI::PowerBudget => 0.8 W applies to power_supply;
             };
             
             buttons : device Control_Buttons {
-                SEI::PowerBudget => 0.05 w applies to power_supply;
+                SEI::PowerBudget => 0.05 W applies to power_supply;
             };
             
             led : device LED_Light {
-                SEI::PowerBudget => 3.0 w applies to power_supply;
+                SEI::PowerBudget => 3.0 W applies to power_supply;
             };
             
             gps : device GPS_Module {
-                SEI::PowerBudget => 0.5 w applies to power_supply;
+                SEI::PowerBudget => 0.5 W applies to power_supply;
             };
             
             bluetooth : device Bluetooth_Module {
-                SEI::PowerBudget => 0.3 w applies to power_supply;
+                SEI::PowerBudget => 0.3 W applies to power_supply;
             };
             
             alarm : device Alarm_Buzzer {
-                SEI::PowerBudget => 0.2 w applies to power_supply;
+                SEI::PowerBudget => 0.2 W applies to power_supply;
             };
             
             front_brake : device Front_Brake {
-                SEI::PowerBudget => 0.05 w applies to power_supply;
+                SEI::PowerBudget => 0.05 W applies to power_supply;
             };
             
             rear_brake : device Rear_Brake {
-                SEI::PowerBudget => 0.05 w applies to power_supply;
+                SEI::PowerBudget => 0.05 W applies to power_supply;
             };
 
         connections
@@ -531,7 +554,8 @@ public
             source_flow : flow source speed_sensor.speed_source -> d_spd -> controller.motor_flow -> d_mtr -> command_output;
 
         properties
-            Actual_Processor_Binding => (reference (cpu)) applies to controller;
+            Actual_Processor_Binding => (reference (vp)) applies to controller;
+            Actual_Processor_Binding => (reference (cpu)) applies to vp;
             Actual_Memory_Binding => (reference (ram)) applies to controller;
             Actual_Connection_Binding => (reference (spi_bus)) applies to d_spd;
 

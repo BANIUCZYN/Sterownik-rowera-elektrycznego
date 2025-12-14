@@ -1,0 +1,12 @@
+
+
+Computing Electrical Power for power_cable,
+Capacity: 2880.0 W,
+Supply: 0.0 mW,
+Budget: 2030.0 W,3.0 W for cpu, 100.0 mW for speed_sensor, 50.0 mW for cadence_sensor, 100.0 mW for torque_sensor, 500.0 mW for bms, 800.0 mW for lcd, 50.0 mW for buttons, 3.0 W for led, 500.0 mW for gps, 300.0 mW for bluetooth, 200.0 mW for alarm, 50.0 mW for front_brake, 50.0 mW for rear_brake, 1000.0 mW for cpu, 5.0 W for controller, 1000.0 W for motor, 100.0 mW for hall_sensor, 200.0 mW for current_sensor, 100.0 mW for speed_sensor, 50.0 mW for cadence_sensor, 100.0 mW for torque_sensor, 500.0 mW for bms, 800.0 mW for lcd, 50.0 mW for buttons, 3.0 W for led, 500.0 mW for gps, 300.0 mW for bluetooth, 200.0 mW for alarm, 50.0 mW for front_brake, 50.0 mW for rear_brake, 3.0 W for cpu, 5.0 W for controller, 1000.0 W for motor, 100.0 mW for hall_sensor, 200.0 mW for current_sensor, 1000.0 mW for cpu,
+power_cable power budget total 2030.0 W within capacity 2880.0 W,
+budget total 2030.0 W within capacity 2880.0 W,
+,
+
+
+

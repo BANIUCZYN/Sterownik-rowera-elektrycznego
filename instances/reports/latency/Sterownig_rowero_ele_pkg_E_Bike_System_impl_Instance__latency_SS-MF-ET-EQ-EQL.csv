@@ -1,0 +1,45 @@
+Latency analysis with preference settings: synchronous system/major partition frame/worst case as max compute execution time/best case as empty queue/queuing latency enabled
+
+"Latency results for end-to-end flow 'controller_module.e2e_control' of system 'E_Bike_System.impl' "
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+device controller_module.speed_sensor (source speed_source),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+(bus controller_module.spi_bus),2.0ms,2.0ms,specified,5.0ms,5.0ms,specified,Using specified bus latency
+connection speed_sensor.speed_out -> controller.control_thread.speed_in,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency,Adding latency subtotal from protocols and hardware - shown with ()
+partition controller_module.vp,0.0ms,0.0ms,partition major frame,0.0ms,0.0ms,partition major frame,Partition not found in ARINC653 schedule of processor cpu,Max: (S) major frame 0.0ms
+thread controller_module.controller.control_thread (path motor_path),0.0ms,100.0ms,sampling,0.0ms,100.0ms,sampling,Sampling period 100.0ms
+thread controller_module.controller.control_thread (path motor_path),0.0ms,8.0ms,processing time,0.0ms,20.0ms,processing time
+Latency Total,2.0ms,110.0ms,,5.0ms,125.0ms
+Specified End To End Latency,,0.0ms,,,0.0ms
+End to end Latency Summary
+WARNING,Expected end to end latency is not specified
+
+
+
+"Latency results for end-to-end flow 'global_flow' of system 'E_Bike_System.impl' "
+
+Result,Min Specified,Min Actual,Min Method,Max Specified,Max Actual,Max Method,Comments
+device controller_module.speed_sensor (source speed_source),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+(bus controller_module.spi_bus),2.0ms,2.0ms,specified,5.0ms,5.0ms,specified,Using specified bus latency
+(bus controller_module.spi_bus),0.0ms,0.0ms,queued,0.0ms,0.0ms,queued
+(bus controller_module.spi_bus),0.0ms,0.0ms,sampling protocol/bus,0.0ms,0.0ms,sampling protocol/bus
+connection speed_sensor.speed_out -> controller.control_thread.speed_in,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency,Adding latency subtotal from protocols and hardware - shown with ()
+partition controller_module.vp,0.0ms,0.0ms,partition major frame,0.0ms,0.0ms,partition major frame,Partition not found in ARINC653 schedule of processor cpu,Max: (S) major frame 0.0ms
+thread controller_module.controller.control_thread (path motor_path),0.0ms,100.0ms,sampling,0.0ms,100.0ms,sampling,Sampling period 100.0ms
+thread controller_module.controller.control_thread (path motor_path),0.0ms,8.0ms,processing time,0.0ms,20.0ms,processing time
+(bus can_cable),1.0ms,1.0ms,specified,3.0ms,3.0ms,specified,Using specified bus latency
+(bus can_cable),0.0ms,0.0ms,queued,0.0ms,0.0ms,queued
+(bus can_cable),0.0ms,0.0ms,sampling protocol/bus,0.0ms,0.0ms,sampling protocol/bus
+connection controller_module.controller.control_thread.motor_command_out -> motor_module.motor_app.motor_thread.command_in,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency,Adding latency subtotal from protocols and hardware - shown with ()
+partition motor_module.vp,0.0ms,0.0ms,partition major frame,0.0ms,0.0ms,partition major frame,Partition not found in ARINC653 schedule of processor cpu,Min: (S) major frame 0.0ms,Assume synchronous communication,Max: (S) major frame 0.0ms
+thread motor_module.motor_app.motor_thread (path pwm_path),0.0ms,50.0ms,sampling,0.0ms,50.0ms,sampling,Sampling period 50.0ms
+thread motor_module.motor_app.motor_thread (path pwm_path),0.0ms,3.0ms,processing time,0.0ms,8.0ms,processing time
+connection motor_app.motor_thread.pwm_out -> motor.pwm_signal,0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+device motor_module.motor (sink motor_sink),0.0ms,0.0ms,no sampling/queuing latency,0.0ms,0.0ms,no sampling/queuing latency
+Latency Total,3.0ms,164.0ms,,8.0ms,186.0ms
+Specified End To End Latency,,0.0ms,,,0.0ms
+End to end Latency Summary
+WARNING,Expected end to end latency is not specified
+
+
+

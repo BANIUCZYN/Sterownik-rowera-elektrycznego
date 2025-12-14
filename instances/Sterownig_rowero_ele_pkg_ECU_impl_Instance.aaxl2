@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" name="ECU_impl_Instance" category="processor">
-  <classifier xsi:type="aadl2:ProcessorImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.ECU.impl"/>
-  <systemOperationMode name="No Modes"/>
-  <componentImplementation xsi:type="aadl2:ProcessorImplementation" href="../Sterownig_rowero_ele_pkg.aadl#E_Bike_Controller.ECU.impl"/>
-</instance:SystemInstance>
