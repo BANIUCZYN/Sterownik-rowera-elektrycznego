@@ -10,7 +10,6 @@
 - [Architektura](#architektura)
 - [Specyfikacja komponentów](#specyfikacja-komponentów)
 - [Diagramy systemu](#diagramy-systemu)
-- [Analiza przepływów](#analiza-przepływów)
 - [Wyniki analiz](#wyniki-analiz)
 - [Założenia techniczne](#założenia-techniczne)
 - [Możliwe rozszerzenia](#możliwe-rozszerzenia)
