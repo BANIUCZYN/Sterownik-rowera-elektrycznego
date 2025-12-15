@@ -286,41 +286,6 @@ E_Bike_System.impl
 
 ---
 
-## Analiza przepływów
-
-### Przepływy End-to-End
-
-#### 1. **Przepływ sterowania E2E** (Controller Subsystem)
-```
-Speed_Sensor.speed_source 
-  → połączenie d_spd 
-  → Controller_Process.motor_flow 
-  → połączenie d_mtr 
-  → command_output
-```
-
-**Cel**: Główna ścieżka sterowania od pomiaru prędkości do generowania komendy silnika
-
-#### 2. **Globalny przepływ systemu** (System kompletny)
-```
-Controller_Subsystem.source_flow 
-  → command_link (CAN Bus) 
-  → Motor_Subsystem.sink_flow
-```
-
-**Cel**: Transmisja komend między podsystemami
-
-#### 3. **Przepływ wykonania silnika** (Motor Subsystem)
-```
-command_input 
-  → Motor_Process.proc_path 
-  → BLDC_Motor.motor_sink
-```
-
-**Cel**: Od komendy silnika do fizycznej aktywacji
-
----
-
 ## Wyniki analiz
 
 ### Analiza Flow Latency
