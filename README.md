@@ -5,19 +5,19 @@
 > Email: baniuk@student.agh.edu.pl
 
 ## Spis treści
-- [Opis systemu](#opis-systemu)
-- [Opis funkcjonalny](#opis-funkcjonalny)
-- [Architektura](#architektura)
-- [Specyfikacja komponentów](#specyfikacja-komponentów)
-- [Diagramy systemu](#diagramy-systemu)
-- [Wyniki analiz](#wyniki-analiz)
-- [Założenia techniczne](#założenia-techniczne)
-- [Możliwe rozszerzenia](#możliwe-rozszerzenia)
-- [Literatura](#literatura)
+- [1. Opis systemu](#1.-opis-systemu)
+- [2. Opis funkcjonalny](#2.-opis-funkcjonalny)
+- [3. Architektura](#3.-architektura)
+- [4. Specyfikacja komponentów](#4.-specyfikacja-komponentów)
+- [5. Diagramy systemu](#5.-diagramy-systemu)
+- [6. Wyniki analiz](#6.-wyniki-analiz)
+- [7. Założenia techniczne](#7.-założenia-techniczne)
+- [8. Możliwe rozszerzenia](#8.-możliwe-rozszerzenia)
+- [9. Literatura](#9.-literatura)
 
 ---
 
-## Opis systemu
+## 1. Opis systemu
 
 Projekt przedstawia kompleksowy model AADL (Architecture Analysis & Design Language) systemu sterowania roweru elektrycznego. Model obejmuje pełną architekturę elektronicznego układu sterowania, w tym: wejścia sensoryczne, jednostki przetwarzające, sterowanie silnikiem oraz infrastrukturę komunikacyjną.
 
@@ -36,7 +36,7 @@ System został zbudowany w architekturze rozproszonej Master-Slave:
 
 ---
 
-## Opis funkcjonalny
+## 2. Opis funkcjonalny
 
 ### Perspektywa użytkownika
 
@@ -81,7 +81,7 @@ BMS baterii   Wyświetlacz/UI                   Sprzężenie Hall/Prąd
 
 ---
 
-## Architektura
+## 3. Architektura
 
 ### Hierarchia systemu
 
@@ -127,7 +127,7 @@ Infrastruktura obliczeniowa i komunikacyjna:
 
 ---
 
-## Specyfikacja komponentów
+## 4. Specyfikacja komponentów
 
 ### Typy danych
 
@@ -233,7 +233,7 @@ Struktura komendy sterującej silnikiem:
 
 ---
 
-## Diagramy systemu
+## 5. Diagramy systemu
 
 ### Diagram instancji - System kompletny
 
@@ -285,7 +285,7 @@ E_Bike_System.impl
 
 ---
 
-## Wyniki analiz
+## 6. Wyniki analiz
 
 ### Analiza Flow Latency
 
@@ -365,7 +365,7 @@ Całkowity budżet power_cable: 2030.0 W (mieści się w pojemności 2880.0 W)
 
 ---
 
-## Założenia techniczne
+## 7. Założenia techniczne
 
 ### Ograniczenia czasu rzeczywistego
 1. **Wykonanie okresowe**: Wszystkie wątki używają okresowego protokołu dispatchingu
@@ -398,7 +398,7 @@ Całkowity budżet power_cable: 2030.0 W (mieści się w pojemności 2880.0 W)
 
 ---
 
-## Możliwe rozszerzenia
+## 8. Możliwe rozszerzenia
 
 ### Ulepszenia krótkoterminowe
 1. **Analiza możliwości harmonogramowania**
@@ -447,7 +447,7 @@ Całkowity budżet power_cable: 2030.0 W (mieści się w pojemności 2880.0 W)
 
 ---
 
-## Literatura
+## 9. Literatura
 
 ### Standardy i specyfikacje
 - **SAE AS5506C** - Architecture Analysis & Design Language (AADL)
